@@ -67,12 +67,12 @@ function askRowAndColumn(matrix) {
         } else if (parts[0] <= 0 || parts[1] <= 0) {
           console.log("Csak pozitív számokat adhat meg!");
           ask();
-        } else if (parts[0] > matrix.length || parts[1] > matrix[0].length) {
+        } else if (parts[0] > matrix.row || parts[1] > matrix.column) {
           console.log("A sor és oszlop számoknak a mátrix határain belül kell lennie!");
           ask();
         } else {
           rl.close();
-          const result = parts.map(Number);
+          const result = parts.map((part) => parseInt(part) - 1);
           resolve(result);
         }
       });
