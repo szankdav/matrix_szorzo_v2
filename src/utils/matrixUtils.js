@@ -43,11 +43,23 @@ function pushNumberToMatrixElements(matrix, numberToPush, selectedRowAndColumn) 
     throw new Error("A sor és oszlop indexeknek számoknak kell lennie.");
   }
 
+  if (selectedRowAndColumn[0] < 0 || selectedRowAndColumn[1] < 0) {
+    throw new Error("A sor és oszlop indexeknek pozitív számoknak kell lennie.");
+  }
+
+  if (selectedRowAndColumn[0] - 1 >= matrix.length || selectedRowAndColumn[1] - 1 >= matrix[0].length) {
+    throw new Error("A sor és oszlop indexeknek a mátrix határain belül kell lennie.");
+  }
+
   return matrix.map((row, rowIndex) => 
     row.map((element, columnIndex) => 
-      rowIndex === selectedRowAndColumn[0] && columnIndex === selectedRowAndColumn[1] ? element = numberToPush : element
+      rowIndex === selectedRowAndColumn[0] - 1 && columnIndex === selectedRowAndColumn[1] - 1 ? element = numberToPush : element
     )
   );
 }
 
-module.exports = { createMatrix, fillMatrixWithRandomNumbers, pushNumberToMatrixElements }; 
+function printMatrix(matrix) {
+  return matrix.map(row => row.join(" ")).join("\n");
+}
+
+module.exports = { createMatrix, fillMatrixWithRandomNumbers, pushNumberToMatrixElements, printMatrix }; 

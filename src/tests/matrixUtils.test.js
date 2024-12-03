@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createMatrix, fillMatrixWithRandomNumbers, pushNumberToMatrixElements } from "../utils/matrixUtils";
+import { createMatrix, fillMatrixWithRandomNumbers, pushNumberToMatrixElements, printMatrix } from "../utils/matrixUtils";
 
 describe("createMatrix", () => {
   it("should create a matrix with the specified dimensions", () => {
@@ -45,7 +45,9 @@ describe("createMatrix", () => {
     expect(() => createMatrix(2, "not a number")).toThrow();
     expect(() => createMatrix("not a number", "not a number")).toThrow();
   });
+});
 
+describe("fillMatrixWithRandomNumbers", () => {
   it("should fill the matrix with random numbers", () => {
     const matrix = createMatrix(3, 3);
     const filledMatrix = fillMatrixWithRandomNumbers(matrix);
@@ -81,7 +83,17 @@ describe("createMatrix", () => {
     expect(filledMatrix.length).toBe(1000);
     expect(filledMatrix[0].length).toBe(1000);
   });
+});
 
+describe("printMatrix", () => {
+  it("should print the matrix in the correct format", () => {
+    const matrix = createMatrix(3, 3);
+    const filledMatrix = fillMatrixWithRandomNumbers(matrix, 1, 100);
+    expect(printMatrix(filledMatrix)).toBe(printMatrix(filledMatrix));
+  });
+});
+
+describe("pushNumberToMatrixElements", () => {
   it("should push number to the matrix's selected elements", () => {
     const matrix = createMatrix(3, 3);
     const numberToPush = 1;
@@ -89,6 +101,38 @@ describe("createMatrix", () => {
     const pushedMatrix = pushNumberToMatrixElements(matrix, numberToPush, selectedRowAndColumn);
     expect(pushedMatrix.length).toBe(3);
     expect(pushedMatrix[0].length).toBe(3);
-    expect(pushedMatrix[selectedRowAndColumn[0]][selectedRowAndColumn[1]]).toBe(numberToPush);
+    expect(pushedMatrix[selectedRowAndColumn[0] - 1][selectedRowAndColumn[1] - 1]).toBe(numberToPush);
+  });
+
+  it("should throw error for invalid matrix", () => {
+    expect(() => pushNumberToMatrixElements("not a matrix")).toThrow();
+  });
+
+  it("should throw error for invalid number to push", () => {
+    expect(() => pushNumberToMatrixElements(createMatrix(3, 3), "not a number", [1, 1])).toThrow();
+  });
+
+  it("should throw error for invalid selected row and column", () => {
+    expect(() => pushNumberToMatrixElements(createMatrix(3, 3), 1, [1, 1, 1])).toThrow();
+  });
+
+  it("should throw error for negative selected row and column", () => {
+    expect(() => pushNumberToMatrixElements(createMatrix(3, 3), 1, [-1, 1])).toThrow();
+  });
+
+  it("should throw error for selected row and column out of matrix bounds", () => {
+    expect(() => pushNumberToMatrixElements(createMatrix(3, 3), 1, [4, 4])).toThrow();
+  });
+
+  it("should throw error for non-array selected row and column", () => {
+    expect(() => pushNumberToMatrixElements(createMatrix(3, 3), 1, "not an array")).toThrow();
+  });
+
+  it("should return a new matrix with the pushed number", () => {
+    const matrix = createMatrix(3, 3);
+    const numberToPush = 1;
+    const selectedRowAndColumn = [1, 1];
+    const pushedMatrix = pushNumberToMatrixElements(matrix, numberToPush, selectedRowAndColumn);
+    expect(pushedMatrix).not.toBe(matrix);
   });
 });
