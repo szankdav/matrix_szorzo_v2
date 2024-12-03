@@ -8,6 +8,7 @@ const {
   askQuestionForContinue,
 } = require("./utils/inputUtils");
 const { multiplyMatrices } = require("./classes/matrixOperations");
+
 async function main() {
   try {
     console.log("Mátrix generálás bemutatása:");
