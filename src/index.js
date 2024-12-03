@@ -1,23 +1,25 @@
 "use strict";
 
-const { Matrix } = require("./classes/matrix");
-const readline = require("readline");
+const { createMatrix, fillMatrixWithRandomNumbers } = require("./utils/matrixUtils");
+const { askQuestion, askRange, rl } = require("./utils/inputUtils");
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-let rows;
-let columns;
-
-rl.question("Kérem adja meg a mátrix sorainak számát: ", (ans) => {
-  rows = parseInt(ans);
-  console.log("A mátrix sorainak száma: ", rows);
-  rl.question("Kérem adja meg a mátrix oszlopainak számát: ", (ans) => {
-    columns = parseInt(ans);
+async function main() {
+  try {
+    const rows = await askQuestion("Kérem adja meg a mátrix sorainak számát: ");
+    console.log("A mátrix sorainak száma: ", rows);
+    
+    const columns = await askQuestion("Kérem adja meg a mátrix oszlopainak számát: ");
     console.log("A mátrix oszlopainak száma: ", columns);
+    
     console.log(createMatrix(rows, columns));
+
+    const { min, max } = await askRange();
+    console.log("A mátrix számok minimális és maximális értéke: ", min, max);
+    console.log(fillMatrixWithRandomNumbers(createMatrix(rows, columns), min, max));
+  } catch (error) {
+    console.error("Hiba történt:", error);
     rl.close();
-  });
-});
+  }
+}
+
+main();
