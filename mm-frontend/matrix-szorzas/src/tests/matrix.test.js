@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import Matrix from '../classes/matrix';
+import { Matrix } from '../classes/Matrix';
 
 describe('Matrix', () => {
   describe('constructor', () => {

@@ -1,4 +1,4 @@
-const Matrix = require("./matrix");
+import {Matrix} from '../classes/Matrix';
 
 function multiplyMatrices(matrix_a, matrix_b) {
   if (matrix_a.column !== matrix_b.row) {

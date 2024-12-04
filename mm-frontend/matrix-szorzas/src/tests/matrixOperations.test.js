@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import Matrix from '../classes/matrix';
-import { multiplyMatrices } from '../classes/matrixOperations';
+import {Matrix} from '../classes/Matrix';
+import { multiplyMatrices } from '../classUtils/matrixOperations';
 
 describe('multiplyMatrices', () => {
     it('should multiply two matrices', () => {
