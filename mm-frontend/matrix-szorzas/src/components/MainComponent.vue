@@ -2,28 +2,44 @@
 import { Matrix } from '@/classes/Matrix'
 import { ref } from 'vue'
 
-const a_column_b_row_error = ref(false)
-const a_matrix_row = ref()
-const a_matrix_column = ref()
-const b_matrix_row = ref()
-const b_matrix_column = ref()
-const a_matrix = ref()
-const b_matrix = ref()
+const a_column_b_row_error = ref(false);
+const a_matrix_row = ref();
+const a_matrix_column = ref();
+const b_matrix_row = ref();
+const b_matrix_column = ref();
+const a_matrix = ref(null); // Make sure to initialize with null or an empty state
+const b_matrix = ref(null);
+let a_table_th;
+let b_table_th;
 
 function createMatrix(matrix_id) {
-  a_column_b_row_error.value = false
+  a_column_b_row_error.value = false;
+
   if (!isNaN(a_matrix_column.value) && !isNaN(b_matrix_row.value)) {
-    if (a_matrix_column.value != b_matrix_row.value) {
-      a_column_b_row_error.value = true
+    if (a_matrix_column.value !== b_matrix_row.value) {
+      a_column_b_row_error.value = true;
     }
   }
-  if (a_column_b_row_error.value == false) {
-    matrix_id == 1
-      ? (a_matrix.value = new Matrix(parseInt(a_matrix_row.value), parseInt(a_matrix_column.value)))
-      : (b_matrix.value = new Matrix(parseInt(b_matrix_row.value), parseInt(b_matrix_column.value)))
-    matrix_id == 1 ? a_matrix.value = getMatrixData(a_matrix.value) : b_matrix.value = getMatrixData(b_matrix.value)
-    a_column_b_row_error.value = false
+
+  if (!a_column_b_row_error.value) {
+    if (matrix_id === 1) {
+      a_matrix.value = new Matrix(
+        parseInt(a_matrix_row.value),
+        parseInt(a_matrix_column.value)
+      );
+      a_matrix.value = getMatrixData(a_matrix.value);
+      a_table_th = a_matrix_column.value;
+    } else if (matrix_id === 2) {
+      b_matrix.value = new Matrix(
+        parseInt(b_matrix_row.value),
+        parseInt(b_matrix_column.value)
+      );
+      b_matrix.value = getMatrixData(b_matrix.value);
+      b_table_th = b_matrix_column.value;
+    }
+    a_column_b_row_error.value = false;
   }
+  console.log(a_matrix.value)
 }
 
 function getMatrixData(matrix) {
@@ -52,17 +68,25 @@ function getMatrixData(matrix) {
           </div>
           <button class="btn btn-success mt-3 w-50" type="submit">Mehet</button>
         </form>
-        <p class="text-start mt-5">Az "A" mátrix:</p>
-        <table>
+        <div v-if="a_matrix">
+          <p class="text-start mt-5">Az "A" mátrix:</p>
+        <table class="table table-bordered table-striped-columns">
           <thead>
-            <tr></tr>
+            <tr>
+              <th></th>
+              <th v-for="column in a_table_th">
+                {{column}}
+              </th>
+            </tr>
           </thead>
           <tbody data-testid="a_matrix_table">
             <tr v-for="row in a_matrix">
-              <td v-for="column in row">0</td>
+              <td>{{ row.indexOf() }}</td>
+              <td v-for="column in row">{{ column }}</td>
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
       <div class="col-6 mt-5 text-center">
         <h5>"B" mátrix</h5>
@@ -79,17 +103,25 @@ function getMatrixData(matrix) {
           </div>
           <button class="btn btn-success mt-3 w-50 go_button">Mehet</button>
         </form>
-        <p class="text-start mt-5">A "B" mátrix:</p>
-        <table>
+        <div v-if="b_matrix">
+          <p class="text-start mt-5">A "B" mátrix:</p>
+        <table class="table table-bordered table-striped-columns">
           <thead>
-            <tr></tr>
+            <tr>
+              <th></th>   
+              <th v-for="column of b_table_th">
+                {{column}}
+              </th>      
+            </tr>
           </thead>
           <tbody data-testid="b_matrix_table">
             <tr v-for="row in b_matrix">
-              <td v-for="column in row">0</td>
+              <td>{{  }}</td>
+              <td v-for="column in row">{{ column }}</td>
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -115,4 +147,6 @@ function getMatrixData(matrix) {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
