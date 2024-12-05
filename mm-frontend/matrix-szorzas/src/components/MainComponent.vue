@@ -69,13 +69,15 @@ function fillMatrixWithRandomNumbers(matrix) {
 }
 
 function changeMatrixNumber(event) {
+  event.target.blur()
   a_matrix_number_change_error.value = false
   b_matrix_number_change_error.value = false
-  event.target.blur()
+
   let matrixToUpdate = event.target.classList[0]
   let matrixToUpdateColumn = event.target.cellIndex
   let matrixToUpdateRow = event.target.parentNode.rowIndex
   let changedNumber = event.target.innerText
+
   if (matrixToUpdate == "a_matrix_td_element" && isNaN(changedNumber)) {
     a_matrix_number_change_error.value = true
     event.target.innerText = a_matrix.value[matrixToUpdateRow - 1][matrixToUpdateColumn - 1]

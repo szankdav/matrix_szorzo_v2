@@ -117,6 +117,40 @@ describe('MainComponent functions', () => {
     expect(a_column_b_row_error_error_message.isVisible()).toBe(true)
   })
 
+  it('should call changeMatrixNumber when a_matrixs td lost focus', async () => {
+    const wrapper = mount(MainComponent)
+    const changeMatrixNumber = vi.spyOn(wrapper.vm, 'changeMatrixNumber')
+
+    await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
+    await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
+    const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
+    await a_matrix_form.trigger('submit')
+
+    const tdElement = wrapper.find('[data-testid="a_matrix_td_element_test"]')
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = '5'
+    await tdElement.trigger('focusout')
+
+    expect(changeMatrixNumber).toHaveBeenCalled()
+  })
+
+  it('should call changeMatrixNumber when b_matrixs td lost focus', async () => {
+    const wrapper = mount(MainComponent)
+    const changeMatrixNumber = vi.spyOn(wrapper.vm, 'changeMatrixNumber')
+
+    await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('5')
+    await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('3')
+    const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
+    await b_matrix_form.trigger('submit')
+
+    const tdElement = wrapper.find('[data-testid="b_matrix_td_element_test"]')
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = '5'
+    await tdElement.trigger('focusout')
+
+    expect(changeMatrixNumber).toHaveBeenCalled()
+  })
+
   it('should change the number in the a_matrix', async () => {
     const wrapper = mount(MainComponent)
 
