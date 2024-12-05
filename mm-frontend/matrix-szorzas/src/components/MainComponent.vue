@@ -11,6 +11,7 @@ const b_matrix_row = ref();
 const b_matrix_column = ref();
 const a_matrix = ref(null);
 const b_matrix = ref(null);
+const multipliedMatrices = ref(null)
 const a_matrix_random_numbers = ref(false)
 const b_matrix_random_numbers = ref(false)
 let a_table_th;
@@ -66,6 +67,26 @@ function getMatrixData(matrix) {
 
 function fillMatrixWithRandomNumbers(matrix) {
   return matrix.fillWithRandomNumbers();
+}
+
+function multiplyMatrices() {
+  if (a_matrix.value[0].length !== b_matrix.value.length) {
+    return null;
+  } else {
+    let multipliedMatrix = new Matrix(a_matrix.value.length, b_matrix.value[0].length);
+
+    for (let i = 0; i < multipliedMatrix.row; i++) {
+      for (let j = 0; j < multipliedMatrix.column; j++) {
+        let sum = 0;
+        for (let k = 0; k < a_matrix.value[0].length; k++) {
+          sum += a_matrix.value[i][k] * b_matrix.value[k][j];
+        }
+        multipliedMatrix.setElement(i, j, sum);
+      }
+    }
+    multipliedMatrix = getMatrixData(multipliedMatrix);
+    multipliedMatrices.value = multipliedMatrix
+  }
 }
 
 function changeMatrixNumber(event) {
@@ -168,8 +189,8 @@ function changeMatrixNumber(event) {
               </tr>
             </thead>
             <tbody data-testid="a_matrix_table">
-              <tr v-for="row in a_matrix">
-                <td>{{ }}</td>
+              <tr v-for="(row, index) in a_matrix" :key="index">
+                <td class="rowNumber">{{ index + 1 }}</td>
                 <td data-testid="a_matrix_td_element_test" class="a_matrix_td_element" @focusout="changeMatrixNumber"
                   contenteditable="true" v-for="column in row">{{ column }}</td>
               </tr>
@@ -189,8 +210,8 @@ function changeMatrixNumber(event) {
               </tr>
             </thead>
             <tbody data-testid="b_matrix_table">
-              <tr v-for="row in b_matrix">
-                <td>{{ }}</td>
+              <tr v-for="(row, index) in b_matrix" :key="index">
+                <td class="rowNumber">{{ index + 1 }}</td>
                 <td data-testid="b_matrix_td_element_test" class="b_matrix_td_element" @focusout="changeMatrixNumber"
                   contenteditable="true" v-for="column in row">{{ column }}</td>
               </tr>
@@ -209,7 +230,27 @@ function changeMatrixNumber(event) {
     </div>
     <div class="row text-center">
       <div class="col-12">
-        <button class="btn btn-success mt-3">Szorzás!</button>
+        <button type="button" data-testid="multiply_button_test" @click="multiplyMatrices" class="btn btn-success mt-3">Szorzás!</button>
+      </div>
+      <div v-if="multipliedMatrices" class="col-12 mt-4">
+        <table class="table table-bordered table-striped-columns">
+          <thead>
+            <tr>
+                <th></th>
+                <th v-for="number of b_matrix_column">
+                  {{ number }}
+                </th>
+              </tr>
+          </thead>
+          <tbody data-testid="multiplied_matrix_tbody_test">
+            <tr v-for="(row, index) in multipliedMatrices" :key="index">
+                <td class="rowNumber">{{ index + 1 }}</td>
+                <td v-for="column in row">
+                  {{ column }}
+                </td>
+              </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -221,5 +262,9 @@ function changeMatrixNumber(event) {
   font-weight: bold;
   border: 2px dotted red;
   text-align: center;
+}
+
+.rowNumber{
+  font-weight: bold;
 }
 </style>
