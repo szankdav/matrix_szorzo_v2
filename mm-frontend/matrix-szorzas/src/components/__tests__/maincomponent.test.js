@@ -4,14 +4,14 @@ import MainComponent from '../MainComponent.vue'
 import { mount } from '@vue/test-utils'
 
 describe('MainComponent functions', () => {
-  it('should call createMatrix when clicked', async () => {
+  it('should call submitMatrix when clicked', async () => {
     const wrapper = mount(MainComponent)
 
-    const createMatrix = vi.spyOn(wrapper.vm, 'createMatrix')
+    const submitMatrix = vi.spyOn(wrapper.vm, 'submitMatrix')
     const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
     await a_matrix_form.trigger('submit')
 
-    expect(createMatrix).toHaveBeenCalled()
+    expect(submitMatrix).toHaveBeenCalled()
   })
 
   it('should render a_matrix in the DOM', async () => {
@@ -23,8 +23,11 @@ describe('MainComponent functions', () => {
 
     await a_matrix_form.trigger('submit')
 
-    expect(wrapper.find('[data-testid="a_matrix_test_row"]').element.value).toBe('5')
-    expect(wrapper.find('[data-testid="a_matrix_test_column"]').element.value).toBe('3')
+    const tbodyElement = wrapper.find('tbody')
+    const tbodyRows = tbodyElement.element.children.length
+    const tbodyColumns = tbodyElement.element.children[0].cells.length
+    expect(tbodyRows).toBe(5)
+    expect(tbodyColumns).toBe(4)
     expect(wrapper.find('[data-testid="a_matrix_table"]').text()).contains('0')
   })
 
@@ -37,8 +40,11 @@ describe('MainComponent functions', () => {
 
     await b_matrix_form.trigger('submit')
 
-    expect(wrapper.find('[data-testid="b_matrix_test_row"]').element.value).toBe('8')
-    expect(wrapper.find('[data-testid="b_matrix_test_column"]').element.value).toBe('4')
+    const tbodyElement = wrapper.find('tbody')
+    const tbodyRows = tbodyElement.element.children.length
+    const tbodyColumns = tbodyElement.element.children[0].cells.length
+    expect(tbodyRows).toBe(8)
+    expect(tbodyColumns).toBe(5)
     expect(wrapper.find('[data-testid="b_matrix_table"]').text()).contains('0')
   })
 
@@ -124,6 +130,15 @@ describe('MainComponent functions', () => {
     tdElement.element.innerText = '5'
     await tdElement.trigger('focusout')
     expect(tdElement.text()).toBe('5')
+
+    const a_matrix = wrapper.vm.a_matrix
+    expect(a_matrix).toEqual([
+      [5, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ])
   })
 
   it('should show error message if the given value in a_matrix is not a number', async () => {
@@ -143,7 +158,7 @@ describe('MainComponent functions', () => {
     expect(a_matrix_number_change_error).toBe(true)
   })
 
-  it('should not change the number in a_matrix on the given position if the given value is not a number', async () => {
+  it('should not change the number in a_matrix if the given value is not a number', async () => {
     const wrapper = mount(MainComponent)
 
     await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
@@ -176,6 +191,13 @@ describe('MainComponent functions', () => {
     tdElement.element.innerText = '5'
     await tdElement.trigger('focusout')
     expect(tdElement.text()).toBe('5')
+
+    const b_matrix = wrapper.vm.b_matrix
+    expect(b_matrix).toEqual([
+      [5, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ])
   })
 
   it('should show error message if the given value in b_matrix is not a number', async () => {
@@ -195,7 +217,7 @@ describe('MainComponent functions', () => {
     expect(b_matrix_number_change_error).toBe(true)
   })
 
-  it('should not change the number in b_matrix on the given position if the given value is not a number', async () => {
+  it('should not change the number in b_matrix if the given value is not a number', async () => {
     const wrapper = mount(MainComponent)
 
     await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('3')
@@ -213,5 +235,47 @@ describe('MainComponent functions', () => {
     tdElement.element.innerText = 'd'
     await tdElement.trigger('focusout')
     expect(tdElement.text()).toBe('5')
+  })
+
+  it('should fill a_matrix with random numbers when checkbox is checked', async () => {
+    const wrapper = mount(MainComponent)
+
+    await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
+    await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
+    const checkbox = wrapper.find('[data-testid="a_matrix_test_random_numbers"]')
+    await checkbox.setValue(true)
+    const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
+    await a_matrix_form.trigger('submit')
+    const checked = wrapper.vm.a_matrix_random_numbers
+
+    expect(checked).toBe(true)
+    const a_matrix = wrapper.vm.a_matrix
+    for (const row of a_matrix) {
+      for (const column of row) {
+        expect(column).toBeGreaterThanOrEqual(1)
+        expect(column).toBeLessThanOrEqual(100)
+      }
+    }
+  })
+
+  it('should fill b_matrix with random numbers when checkbox is checked', async () => {
+    const wrapper = mount(MainComponent)
+
+    await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('5')
+    await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('3')
+    const checkbox = wrapper.find('[data-testid="b_matrix_test_random_numbers"]')
+    await checkbox.setValue(true)
+    const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
+    await b_matrix_form.trigger('submit')
+    const checked = wrapper.vm.b_matrix_random_numbers
+
+    expect(checked).toBe(true)
+    const b_matrix = wrapper.vm.b_matrix
+    for (const row of b_matrix) {
+      for (const column of row) {
+        expect(column).toBeGreaterThanOrEqual(1)
+        expect(column).toBeLessThanOrEqual(100)
+      }
+    }
   })
 })
