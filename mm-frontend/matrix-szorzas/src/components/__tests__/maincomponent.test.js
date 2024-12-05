@@ -12,7 +12,6 @@ describe('MainComponent functions', () => {
     await a_matrix_form.trigger('submit')
 
     expect(createMatrix).toHaveBeenCalled()
-
   })
 
   it('should render a_matrix in the DOM', async () => {
@@ -95,18 +94,124 @@ describe('MainComponent functions', () => {
 
   it('should show error message if a_matrix column and b_matrix row is not equal', async () => {
     const wrapper = mount(MainComponent)
-    
+
     await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
     await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
     const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
     await a_matrix_form.trigger('submit')
-    
+
     await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('5')
     await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('4')
     const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
     await b_matrix_form.trigger('submit')
-    
-    const a_column_b_row_error_error_message = wrapper.find('[data-testid="a_column_b_row_error_message"]')
+
+    const a_column_b_row_error_error_message = wrapper.find(
+      '[data-testid="a_column_b_row_error_message"]',
+    )
     expect(a_column_b_row_error_error_message.isVisible()).toBe(true)
+  })
+
+  it('should change the number in the a_matrix', async () => {
+    const wrapper = mount(MainComponent)
+
+    await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
+    await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
+    const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
+    await a_matrix_form.trigger('submit')
+
+    const tdElement = wrapper.find('[data-testid="a_matrix_td_element_test"]')
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = '5'
+    await tdElement.trigger('focusout')
+    expect(tdElement.text()).toBe('5')
+  })
+
+  it('should show error message if the given value in a_matrix is not a number', async () => {
+    const wrapper = mount(MainComponent)
+
+    await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
+    await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
+    const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
+    await a_matrix_form.trigger('submit')
+
+    const tdElement = wrapper.find('[data-testid="a_matrix_td_element_test"]')
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = 'd'
+    await tdElement.trigger('focusout')
+
+    const a_matrix_number_change_error = wrapper.vm.a_matrix_number_change_error
+    expect(a_matrix_number_change_error).toBe(true)
+  })
+
+  it('should not change the number in a_matrix on the given position if the given value is not a number', async () => {
+    const wrapper = mount(MainComponent)
+
+    await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
+    await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
+    const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
+    await a_matrix_form.trigger('submit')
+
+    const tdElement = wrapper.find('[data-testid="a_matrix_td_element_test"]')
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = '5'
+    await tdElement.trigger('focusout')
+    expect(tdElement.text()).toBe('5')
+
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = 'd'
+    await tdElement.trigger('focusout')
+    expect(tdElement.text()).toBe('5')
+  })
+
+  it('should change the number in the b_matrix', async () => {
+    const wrapper = mount(MainComponent)
+
+    await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('3')
+    await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('4')
+    const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
+    await b_matrix_form.trigger('submit')
+
+    const tdElement = wrapper.find('[data-testid="b_matrix_td_element_test"]')
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = '5'
+    await tdElement.trigger('focusout')
+    expect(tdElement.text()).toBe('5')
+  })
+
+  it('should show error message if the given value in b_matrix is not a number', async () => {
+    const wrapper = mount(MainComponent)
+
+    await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('3')
+    await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('4')
+    const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
+    await b_matrix_form.trigger('submit')
+
+    const tdElement = wrapper.find('[data-testid="b_matrix_td_element_test"]')
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = 'd'
+    await tdElement.trigger('focusout')
+
+    const b_matrix_number_change_error = wrapper.vm.b_matrix_number_change_error
+    expect(b_matrix_number_change_error).toBe(true)
+  })
+
+  it('should not change the number in b_matrix on the given position if the given value is not a number', async () => {
+    const wrapper = mount(MainComponent)
+
+    await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('3')
+    await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('4')
+    const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
+    await b_matrix_form.trigger('submit')
+
+    const tdElement = wrapper.find('[data-testid="b_matrix_td_element_test"]')
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = '5'
+    await tdElement.trigger('focusout')
+    expect(tdElement.text()).toBe('5')
+
+    await tdElement.trigger('focus')
+    tdElement.element.innerText = 'd'
+    await tdElement.trigger('focusout')
+    expect(tdElement.text()).toBe('5')
   })
 })
