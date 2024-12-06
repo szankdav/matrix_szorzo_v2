@@ -87,9 +87,6 @@ function* multiplyMatrices() {
         for (let k = 0; k < a_matrix.value[0].length; k++) {
           yield
           sum += a_matrix.value[i][k] * b_matrix.value[k][j];
-          console.log("k ertek:", k)
-          console.log("j ertek:", j)
-          console.log(b_matrix.value[k][j])
           actual_a_matrix_value.value = a_matrix.value[i][k]
           actual_b_matrix_value.value = b_matrix.value[k][j];
           actual_a_matrix_value_multiplied_with_b_matrix_value.value = a_matrix.value[i][k] * b_matrix.value[k][j];
