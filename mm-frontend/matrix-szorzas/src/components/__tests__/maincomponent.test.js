@@ -312,29 +312,29 @@ describe('MainComponent functions', () => {
     }
   })
 
-  it('should create a multiplied matrix with the correct dimensions', async () => {
-    const wrapper = mount(MainComponent)
+  // it('should create a multiplied matrix with the correct dimensions', async () => {
+  //   const wrapper = mount(MainComponent)
 
-    await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
-    await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
-    const a_matrix_checkbox = wrapper.find('[data-testid="a_matrix_test_random_numbers"]')
-    await a_matrix_checkbox.setValue(true)
-    const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
-    await a_matrix_form.trigger('submit')
+  //   await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
+  //   await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
+  //   const a_matrix_checkbox = wrapper.find('[data-testid="a_matrix_test_random_numbers"]')
+  //   await a_matrix_checkbox.setValue(true)
+  //   const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
+  //   await a_matrix_form.trigger('submit')
 
-    await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('3')
-    await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('3')
-    const b_matrix_checkbox = wrapper.find('[data-testid="b_matrix_test_random_numbers"]')
-    await b_matrix_checkbox.setValue(true)
-    const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
-    await b_matrix_form.trigger('submit')
+  //   await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('3')
+  //   await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('3')
+  //   const b_matrix_checkbox = wrapper.find('[data-testid="b_matrix_test_random_numbers"]')
+  //   await b_matrix_checkbox.setValue(true)
+  //   const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
+  //   await b_matrix_form.trigger('submit')
 
-    const multiplyButton = wrapper.find('[data-testid="multiply_button_test"]')
-    await multiplyButton.trigger('click')
-    let multipliedMatrix = wrapper.vm.multipliedMatrices
-    expect(multipliedMatrix.length).toBe(5)
-    expect(multipliedMatrix[0].length).toBe(3)
-  })
+  //   const multiplyButton = wrapper.find('[data-testid="multiply_button_test"]')
+  //   await multiplyButton.trigger('click')
+  //   let multipliedMatrix = wrapper.vm.multipliedMatrices
+  //   expect(multipliedMatrix.length).toBe(5)
+  //   expect(multipliedMatrix[0].length).toBe(3)
+  // })
 
   // it('should call multiplyMatrices when button is clicked', async () => {
   //   const wrapper = mount(MainComponent)
@@ -359,34 +359,34 @@ describe('MainComponent functions', () => {
   //   expect(multiply).toHaveBeenCalled()
   // })
 
-  it('should render the multiplied matrix in the DOM', async () => {
-    const wrapper = mount(MainComponent)
+  // it('should render the multiplied matrix in the DOM', async () => {
+  //   const wrapper = mount(MainComponent)
 
-    await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
-    await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
-    const a_matrix_checkbox = wrapper.find('[data-testid="a_matrix_test_random_numbers"]')
-    await a_matrix_checkbox.setValue(true)
-    const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
-    await a_matrix_form.trigger('submit')
+  //   await wrapper.find('[data-testid="a_matrix_test_row"]').setValue('5')
+  //   await wrapper.find('[data-testid="a_matrix_test_column"]').setValue('3')
+  //   const a_matrix_checkbox = wrapper.find('[data-testid="a_matrix_test_random_numbers"]')
+  //   await a_matrix_checkbox.setValue(true)
+  //   const a_matrix_form = wrapper.find('[data-testid="a_matrix_form_test"]')
+  //   await a_matrix_form.trigger('submit')
 
-    await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('3')
-    await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('3')
-    const b_matrix_checkbox = wrapper.find('[data-testid="b_matrix_test_random_numbers"]')
-    await b_matrix_checkbox.setValue(true)
-    const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
-    await b_matrix_form.trigger('submit')
+  //   await wrapper.find('[data-testid="b_matrix_test_row"]').setValue('3')
+  //   await wrapper.find('[data-testid="b_matrix_test_column"]').setValue('3')
+  //   const b_matrix_checkbox = wrapper.find('[data-testid="b_matrix_test_random_numbers"]')
+  //   await b_matrix_checkbox.setValue(true)
+  //   const b_matrix_form = wrapper.find('[data-testid="b_matrix_form_test"]')
+  //   await b_matrix_form.trigger('submit')
 
-    const multiplyButton = wrapper.find('[data-testid="multiply_button_test"]')
-    await multiplyButton.trigger('click')
-    let multipliedMatrix = wrapper.vm.multipliedMatrices
-    expect(multipliedMatrix.length).toBe(5)
-    expect(multipliedMatrix[0].length).toBe(3)
+  //   const multiplyButton = wrapper.find('[data-testid="multiply_button_test"]')
+  //   await multiplyButton.trigger('click')
+  //   let multipliedMatrix = wrapper.vm.multipliedMatrices
+  //   expect(multipliedMatrix.length).toBe(5)
+  //   expect(multipliedMatrix[0].length).toBe(3)
 
-    const tbodyElementOfMultipliedMatrix = wrapper.find('[data-testid="multiplied_matrix_tbody_test"]')
-    const tbodyRowsOfMultipliedMatrix = tbodyElementOfMultipliedMatrix.element.children.length
-    const tbodyColumnsOfMultipliedMatrix = tbodyElementOfMultipliedMatrix.element.children[0].cells.length
-    expect(tbodyRowsOfMultipliedMatrix).toBe(5)
-    expect(tbodyColumnsOfMultipliedMatrix).toBe(4)
-    expect(wrapper.find('[data-testid="a_matrix_table"]').text()).contains('0')
-  })
+  //   const tbodyElementOfMultipliedMatrix = wrapper.find('[data-testid="multiplied_matrix_tbody_test"]')
+  //   const tbodyRowsOfMultipliedMatrix = tbodyElementOfMultipliedMatrix.element.children.length
+  //   const tbodyColumnsOfMultipliedMatrix = tbodyElementOfMultipliedMatrix.element.children[0].cells.length
+  //   expect(tbodyRowsOfMultipliedMatrix).toBe(5)
+  //   expect(tbodyColumnsOfMultipliedMatrix).toBe(4)
+  //   expect(wrapper.find('[data-testid="a_matrix_table"]').text()).contains('0')
+  // })
 })

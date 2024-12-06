@@ -16,6 +16,11 @@ const a_matrix_random_numbers = ref(false)
 const b_matrix_random_numbers = ref(false)
 let a_table_th;
 let b_table_th;
+const actual_a_matrix_value = ref()
+const actual_b_matrix_value = ref()
+const actual_a_matrix_value_multiplied_with_b_matrix_value = ref()
+const calculations = ref([])
+
 
 function createNewMatrix(row, column, random) {
   let matrix;
@@ -69,7 +74,7 @@ function fillMatrixWithRandomNumbers(matrix) {
   return matrix.fillWithRandomNumbers();
 }
 
-function multiplyMatrices() {
+function* multiplyMatrices() {
   if (a_matrix.value[0].length !== b_matrix.value.length) {
     return null;
   } else {
@@ -78,15 +83,32 @@ function multiplyMatrices() {
     for (let i = 0; i < multipliedMatrix.row; i++) {
       for (let j = 0; j < multipliedMatrix.column; j++) {
         let sum = 0;
+        console.log("out")
         for (let k = 0; k < a_matrix.value[0].length; k++) {
+          yield
           sum += a_matrix.value[i][k] * b_matrix.value[k][j];
+          console.log("k ertek:", k)
+          console.log("j ertek:", j)
+          console.log(b_matrix.value[k][j])
+          actual_a_matrix_value.value = a_matrix.value[i][k]
+          actual_b_matrix_value.value = b_matrix.value[k][j];
+          actual_a_matrix_value_multiplied_with_b_matrix_value.value = a_matrix.value[i][k] * b_matrix.value[k][j];
+          calculations.value.push(`${actual_a_matrix_value.value} * ${actual_b_matrix_value.value} = ${actual_a_matrix_value_multiplied_with_b_matrix_value.value}`)
+          yield
         }
+        calculations.value.push(sum)
         multipliedMatrix.setElement(i, j, sum);
       }
     }
     multipliedMatrix = getMatrixData(multipliedMatrix);
     multipliedMatrices.value = multipliedMatrix
   }
+}
+
+let n = multiplyMatrices()
+function next() {
+  console.log(n.next().value)
+  n.next()
 }
 
 function changeMatrixNumber(event) {
@@ -175,6 +197,11 @@ function changeMatrixNumber(event) {
           </p>
         </div>
       </div>
+      <div v-if="a_matrix" class="row mt-5">
+        <div class="col-12 text-center">
+          <p>A számok módosításához kattintson a módosítandó számra!</p>
+        </div>
+      </div>
       <div class="row mt-3">
         <div class="col-6 " v-if="a_matrix">
           <p class="text-start">Az "A" mátrix:</p>
@@ -230,25 +257,31 @@ function changeMatrixNumber(event) {
     </div>
     <div class="row text-center">
       <div class="col-12">
-        <button type="button" data-testid="multiply_button_test" @click="multiplyMatrices" class="btn btn-success mt-3">Szorzás!</button>
+        <button type="button" data-testid="multiply_button_test" @click="next"
+          class="btn btn-success mt-3">Szorzás!</button>
+      </div>
+      <div class="col-12 mt-4">
+        <p v-if="calculations.length > 0">Szorzások</p>
+        <p v-for="(calculation, index) of calculations" :key="index">{{ calculation }}{{ index == 0 ? '+\n' : index == 1 ? '=\n' : index == 2 ? '\n' : index % 2 == 0 ? '+\n' : '' }}</p>
       </div>
       <div v-if="multipliedMatrices" class="col-12 mt-4">
+        <p>Az eredmény:</p>
         <table class="table table-bordered table-striped-columns">
           <thead>
             <tr>
-                <th></th>
-                <th v-for="number of b_matrix_column">
-                  {{ number }}
-                </th>
-              </tr>
+              <th></th>
+              <th v-for="number of b_matrix_column">
+                {{ number }}
+              </th>
+            </tr>
           </thead>
           <tbody data-testid="multiplied_matrix_tbody_test">
             <tr v-for="(row, index) in multipliedMatrices" :key="index">
-                <td class="rowNumber">{{ index + 1 }}</td>
-                <td v-for="column in row">
-                  {{ column }}
-                </td>
-              </tr>
+              <td class="rowNumber">{{ index + 1 }}</td>
+              <td v-for="column in row">
+                {{ column }}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -264,7 +297,7 @@ function changeMatrixNumber(event) {
   text-align: center;
 }
 
-.rowNumber{
+.rowNumber {
   font-weight: bold;
 }
 </style>

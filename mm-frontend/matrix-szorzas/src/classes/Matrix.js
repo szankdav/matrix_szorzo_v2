@@ -38,7 +38,6 @@ export class Matrix {
     }
 
     this.data[rowIndex][columnIndex] = value
-    console.log(value, 'hozzáadva a(z)', rowIndex + 1, '. sor ', columnIndex + 1, '. oszlopba.')
     return this
   }
 
