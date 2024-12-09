@@ -1,26 +1,27 @@
 "use strict";
 
 const Matrix = require("./classes/matrix");
-const {
-  askNumber,
-  askRange,
-  askRowAndColumn,
-  askQuestionForContinue,
-} = require("./utils/inputUtils");
+const InputUtils = require("./classes/inputUtils");
 const { multiplyMatrices } = require("./classes/matrixOperations");
+const readline = require("readline");
 
 async function main() {
   try {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+    const inputUtils = new InputUtils(rl);
     console.log("Mátrix generálás bemutatása:");
-    const rows = await askNumber("Kérem adja meg a mátrix sorainak számát: ");
+    const rows = await inputUtils.askNumber("Kérem adja meg a mátrix sorainak számát: ");
     console.log("A mátrix sorainak száma: ", rows);
 
-    const columns = await askNumber(
+    const columns = await inputUtils.askNumber(
       "Kérem adja meg a mátrix oszlopainak számát: "
     );
     console.log("A mátrix oszlopainak száma: ", columns);
 
-    const { min, max } = await askRange();
+    const { min, max } = await inputUtils.askRange();
     console.log("A mátrix számok minimális és maximális értéke: ", min, max);
 
     let matrix = new Matrix(rows, columns).fillWithRandomNumbers(min, max);
@@ -33,14 +34,14 @@ async function main() {
     );
 
     do {
-      const selectedRowAndColumn = await askRowAndColumn(matrix);
+      const selectedRowAndColumn = await inputUtils.askRowAndColumn(matrix);
       console.log(
         "A kiválasztott sor és oszlop száma: ",
         selectedRowAndColumn[0] + 1,
         selectedRowAndColumn[1] + 1
       );
 
-      const numberToPush = await askNumber(
+      const numberToPush = await inputUtils.askNumber(
         "Kérem adja meg a hozzáadandó számot: "
       );
 
@@ -55,27 +56,27 @@ async function main() {
       console.log("A módosított mátrix:");
       console.log(matrix.toString());
     } while (
-      await askQuestionForContinue(
+      await inputUtils.askQuestionForContinue(
         "Szeretne még módosítani a mátrixon? (i/n): "
       )
     );
 
     console.log("Két mátrix szorzásának bemutatása:");
     do {
-      const a_matrix_row = await askNumber(
+      const a_matrix_row = await inputUtils.askNumber(
         "Kérem adja meg a mátrix_a sorainak számát: "
       );
-      const a_matrix_column = await askNumber(
+      const a_matrix_column = await inputUtils.askNumber(
         "Kérem adja meg a mátrix_a oszlopainak számát: "
       );
       const matrix_a = new Matrix(
         a_matrix_row,
         a_matrix_column
       ).fillWithRandomNumbers();
-      const b_matrix_row = await askNumber(
+      const b_matrix_row = await inputUtils.askNumber(
         "Kérem adja meg a mátrix_b sorainak számát: "
       );
-      const b_matrix_column = await askNumber(
+      const b_matrix_column = await inputUtils.askNumber(
         "Kérem adja meg a mátrix_b oszlopainak számát: "
       );
       const matrix_b = new Matrix(
@@ -95,7 +96,7 @@ async function main() {
         console.log("A két mátrix nem szorozható össze!");
       }
     } while (
-      await askQuestionForContinue(
+      await inputUtils.askQuestionForContinue(
         "Szeretne még mátrixokat összeszorozni? (i/n): "
       )
     );
