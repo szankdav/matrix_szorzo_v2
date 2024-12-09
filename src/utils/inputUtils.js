@@ -20,8 +20,8 @@ function askNumber(question) {
           console.log("Csak számokat adhat meg!");
           ask();
         } else {
-          rl.close();
           resolve(num);
+          rl.close();
         }
       });
     };
