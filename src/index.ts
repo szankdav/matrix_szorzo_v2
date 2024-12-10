@@ -1,36 +1,19 @@
-import { GetRowNumber } from './classes/getRowNumberState';
-import { Reader } from './classes/reader';
-import { TerminalReader } from './classes/readFromCLI';
+import { Matrix } from "./classes/Matrix";
+import { TerminalReader } from "./classes/readFromCLI";
 
-const reader = new Reader(new GetRowNumber());
-reader.getRowNumberRequest();
-reader.getColumnNumberRequest();
+const main = async () => {
+    const reader: TerminalReader = new TerminalReader();
+    const matrix: Matrix = new Matrix(reader);
+    // let response: null | void;
+    // do {
+    //     response = await matrix.setNumberForRow();
+    // } while (response == null)
+    await matrix.setNumberForRow();
+    console.log(matrix.row)
+    await matrix.setNumberForColumn();
+    console.log(matrix.column)
+    console.log(`Row: ${matrix.row}, column: ${matrix.column}`)
+    process.exit(0);
+}
 
-
-// const ask = (question: string): Promise<number> => {
-//     const terminalReader = new TerminalReader();
-//     return new Promise((resolve) => {
-//         terminalReader.rl.question(`${question}`, (answer) => {
-//             if (isNaN(parseInt(answer))) {
-//                 console.log("Nem jo!");
-//                 ask(question);
-//             }
-//             else if (parseInt(answer) <= 0) {
-//                 console.log("Nem jo!");
-//                 ask(question);
-//             }
-//             else {
-//                 resolve(parseInt(answer));
-//                 terminalReader.rl.close();
-//             }
-//         })
-//     })
-// }
-
-// async function main(){
-//     const sor = await ask("Sorok szama: ");
-//     const row = await ask("Oszlopok szama: ")
-//     console.log(sor, row)
-// }
-
-// main();
+main();
