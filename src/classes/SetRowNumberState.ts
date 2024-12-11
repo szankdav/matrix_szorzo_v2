@@ -1,7 +1,8 @@
-import { MatrixState } from "../states/MatrixState";
-import { Matrix } from "./Matrix";
+import { MatrixState } from "../states/matrixState";
+import { InputValidate } from "./inputValidate";
+import { Matrix } from "./matrix";
 import { TerminalReader } from "./readFromCLI";
-import { SetColumnNumberState } from "./SetColumnNumberState";
+import { SetColumnNumberState } from "./setColumnNumberState";
 
 export class SetRowNumberState implements MatrixState {
     private matrix: Matrix;
@@ -12,27 +13,26 @@ export class SetRowNumberState implements MatrixState {
         this.reader = reader;
     }
 
+    // Feltesszuk a kerdest, majd az inputot validaljuk. Ha nem jo az input, rekurzivan ujrahivjuk a fuggvenyt
+    //Ha a validalas sikeres, akkor a matrixnak beallitjuk a sort, majd a matrix allapotat modositjuk az oszlopok beolvasasa allapotra
     setNumberForRow(): Promise<void | null> {
         return new Promise((resolve) => {
+            let validateResult: number | null;
             this.reader.rl.question("Kérem írja be a mátrix sorainak számát: ", (answer) => {
-                const num = parseInt(answer);
-                if (answer.split(" ").length > 1) {
-                    console.log("Csak egy számot adhat meg!");
-                    resolve(null)
-                } else if (num <= 0) {
-                    console.log("Csak pozitív számokat adhat meg!");
-                    resolve(null)
-                } else if (isNaN(num)) {
-                    console.log("Csak számokat adhat meg!");
-                    resolve(null)
-                } else {
-                    this.matrix.row = num;
+                const validator = new InputValidate(answer);
+                validateResult = validator.validateAsNumber();
+                if (validateResult == null) {
+                    resolve(this.setNumberForRow());
+                }
+                else {
+                    this.matrix.row = validateResult;
                     this.matrix.setState(new SetColumnNumberState(this.matrix, this.reader))
                     resolve();
                 }
             })
         })
     }
+
     setNumberForColumn(): Promise<void> {
         throw new Error("Method not implemented.");
     }
