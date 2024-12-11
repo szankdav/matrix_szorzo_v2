@@ -1,5 +1,7 @@
+import { TerminalReader } from "../classes/terminalReader";
+
 export interface MatrixState{
-    setNumberForRow():Promise<void | null>;
-    setNumberForColumn():Promise<void>;
+    setNumberForRow(reader: TerminalReader):Promise<void>;
+    setNumberForColumn(reader: TerminalReader):Promise<void>;
     createTheMatrix():number[][];
 }

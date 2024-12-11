@@ -1,32 +1,30 @@
 import { MatrixState } from "../states/matrixState";
 import { InputValidate } from "./inputValidate";
 import { Matrix } from "./matrix";
-import { TerminalReader } from "./readFromCLI";
+import { TerminalReader } from "./terminalReader";
 import { SetColumnNumberState } from "./setColumnNumberState";
 
 export class SetRowNumberState implements MatrixState {
     private matrix: Matrix;
-    private reader: TerminalReader;
 
-    constructor(matrix: Matrix, reader: TerminalReader) {
+    constructor(matrix: Matrix) {
         this.matrix = matrix;
-        this.reader = reader;
     }
 
     // Feltesszuk a kerdest, majd az inputot validaljuk. Ha nem jo az input, rekurzivan ujrahivjuk a fuggvenyt
     //Ha a validalas sikeres, akkor a matrixnak beallitjuk a sort, majd a matrix allapotat modositjuk az oszlopok beolvasasa allapotra
-    setNumberForRow(): Promise<void | null> {
+    setNumberForRow(reader: TerminalReader): Promise<void> {
         return new Promise((resolve) => {
             let validateResult: number | null;
-            this.reader.rl.question("Kérem írja be a mátrix sorainak számát: ", (answer) => {
+            reader.rl.question("Kérem írja be a mátrix sorainak számát: ", (answer) => {
                 const validator = new InputValidate(answer);
                 validateResult = validator.validateAsNumber();
                 if (validateResult == null) {
-                    resolve(this.setNumberForRow());
+                    resolve(this.setNumberForRow(reader));
                 }
                 else {
                     this.matrix.row = validateResult;
-                    this.matrix.setState(new SetColumnNumberState(this.matrix, this.reader))
+                    this.matrix.setState(new SetColumnNumberState(this.matrix))
                     resolve();
                 }
             })

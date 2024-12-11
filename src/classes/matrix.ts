@@ -1,18 +1,15 @@
 import { MatrixState } from "../states/matrixState";
 import { SetRowNumberState } from "./setRowNumberState";
-import { TerminalReader } from "./readFromCLI";
+import { TerminalReader } from "./terminalReader";
 
 export class Matrix implements MatrixState{
     row: number;
     column: number;
     private currentState: MatrixState;
-    private reader: TerminalReader;
 
-    constructor(reader: TerminalReader){
+    constructor(){
         // Beallitasra kerul a kezdeti allapot
-        this.currentState = new SetRowNumberState(this, reader);
-        // User input beolvasasahoz szukseges a terminalrol
-        this.reader = reader
+        this.currentState = new SetRowNumberState(this);
         this.row = 0;
         this.column = 0;
     }
@@ -26,13 +23,13 @@ export class Matrix implements MatrixState{
         this.currentState = state;
     }
 
-    setNumberForRow(): Promise<void | null> {
+    setNumberForRow(reader: TerminalReader): Promise<void> {
         // Az aktualis allapot fuggvenyet fogja meghivni
-        return this.currentState.setNumberForRow();
+        return this.currentState.setNumberForRow(reader);
     }
-    setNumberForColumn(): Promise<void> {
+    setNumberForColumn(reader: TerminalReader): Promise<void> {
         // Az aktualis allapot fuggvenyet fogja meghivni
-        return this.currentState.setNumberForColumn();
+        return this.currentState.setNumberForColumn(reader);
     }
     createTheMatrix(): number[][] {
         throw new Error("Method not implemented.");

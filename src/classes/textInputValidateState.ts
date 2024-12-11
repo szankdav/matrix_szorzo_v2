@@ -4,7 +4,7 @@ export class NumberInputValidateState implements MatrixState{
 
 
 
-    setNumberForRow(): Promise<void | null> {
+    setNumberForRow(): Promise<void> {
         throw new Error("Method not implemented.");
     }
     setNumberForColumn(): Promise<void> {
