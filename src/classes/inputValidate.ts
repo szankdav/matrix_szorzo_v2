@@ -1,13 +1,7 @@
 export class InputValidate {
-    input: string;
-
-    constructor(input: string) {
-        this.input = input;
-    }
-
-    validateAsNumber(): number | null {
-        const num = parseInt(this.input);
-        if (this.input.split(" ").length > 1) {
+    validateAsNumber(input: string): number | null {
+        const num = parseInt(input);
+        if (input.split(" ").length > 1) {
             console.log("Csak egy számot adhat meg!");
             return null;
         } else if (num <= 0) {
@@ -18,6 +12,19 @@ export class InputValidate {
             return null;
         } else {
             return num;
+        }
+    }
+
+    validateAsIOrN(input: string): boolean {
+        const character = input.toUpperCase();
+        if (input.split(" ").length > 1) {
+            console.log("Kérem csak 'i' vagy 'n' betűvel válaszoljon!");
+            return false;
+        } else if (!(character === "I" || character === "N")) {
+            console.log("Kérem csak 'i' vagy 'n' betűvel válaszoljon!");
+            return false;
+        } else {
+            return true;
         }
     }
 }

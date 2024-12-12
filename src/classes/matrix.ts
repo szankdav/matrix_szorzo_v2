@@ -6,17 +6,27 @@ export class Matrix implements MatrixState{
     row: number;
     column: number;
     private currentState: MatrixState;
+    data: number[][];
 
     constructor(){
         // Beallitasra kerul a kezdeti allapot
         this.currentState = new SetRowNumberState(this);
         this.row = 0;
         this.column = 0;
+        this.data = [[],[]];
+    }
+
+    setRangeForMatrix(reader: TerminalReader): Promise<void> {
+        throw new Error("Method not implemented.");
     }
 
     public getMatrix(){
-        return this;
+        return this.data;
     }
+
+    public toString() {
+        return this.data.map(row => row.join(" ")).join("\n");
+      }
 
     // Allapot modositasa
     setState(state: MatrixState){
@@ -31,7 +41,7 @@ export class Matrix implements MatrixState{
         // Az aktualis allapot fuggvenyet fogja meghivni
         return this.currentState.setNumberForColumn(reader);
     }
-    createTheMatrix(): number[][] {
-        throw new Error("Method not implemented.");
+    generateMatrix(): void {
+        return this.currentState.generateMatrix();
     }
 }

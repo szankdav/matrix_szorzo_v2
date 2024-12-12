@@ -17,8 +17,8 @@ export class SetRowNumberState implements MatrixState {
         return new Promise((resolve) => {
             let validateResult: number | null;
             reader.rl.question("Kérem írja be a mátrix sorainak számát: ", (answer) => {
-                const validator = new InputValidate(answer);
-                validateResult = validator.validateAsNumber();
+                const validator = new InputValidate();
+                validateResult = validator.validateAsNumber(answer);
                 if (validateResult == null) {
                     resolve(this.setNumberForRow(reader));
                 }
@@ -34,7 +34,12 @@ export class SetRowNumberState implements MatrixState {
     setNumberForColumn(): Promise<void> {
         throw new Error("Method not implemented.");
     }
-    createTheMatrix(): number[][] {
+
+    setRangeForMatrix(reader: TerminalReader): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
+    generateMatrix(): void {
         throw new Error("Method not implemented.");
     }
 
