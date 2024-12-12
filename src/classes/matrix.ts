@@ -28,6 +28,10 @@ export class Matrix implements MatrixState{
         return this.column;
     }
 
+    public getMatrixState(){
+        return this.currentState;
+    }
+
     public setRow(row: number){
         this.row = row;
     }
