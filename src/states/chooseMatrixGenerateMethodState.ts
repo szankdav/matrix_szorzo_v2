@@ -1,9 +1,9 @@
-import { MatrixState } from "../states/matrixState";
-import { InputValidate } from "./inputValidate";
+import { MatrixState } from "./matrixState";
+import { InputValidate } from "../classes/inputValidate";
 import { ManualMatrixFillState } from "./manualMatrixFillState";
-import { Matrix } from "./matrix";
+import { Matrix } from "../classes/matrix";
 import { RandomWithRangeMatrixFill } from "./randomWithRangeMatrixFillState";
-import { TerminalReader } from "./terminalReader";
+import { TerminalReader } from "../classes/terminalReader";
 
 export class ChooseMatrixGenerateMethodState implements MatrixState {
     private matrix: Matrix;
@@ -23,7 +23,7 @@ export class ChooseMatrixGenerateMethodState implements MatrixState {
     chooseMatrixGenerateMethod(reader: TerminalReader): Promise<void> {
         return new Promise((resolve) => {
             let validateResult: boolean;
-            reader.rl.question("Szeretné manuálisan feltölteni a mátrixot számokkal? (Amennyiben nem, egy megadott számtartományon belüli véletlendszerű számokkal lesz feltöltve.) ['i'/'n']", (answer) => {
+            reader.rl.question("Szeretné manuálisan feltölteni a mátrixot számokkal? (Amennyiben nem, egy megadott számtartományon belüli véletlenszerű számokkal lesz feltöltve.) ['i'/'n']: ", async (answer) => {
                 const validator = new InputValidate();
                 validateResult = validator.validateAsIOrN(answer);
                 if (validateResult === false) {
@@ -40,8 +40,8 @@ export class ChooseMatrixGenerateMethodState implements MatrixState {
                     const generatedMatrix = Array.from({ length: this.matrix.getMatrixRow() }, () => new Array(this.matrix.getMatrixColumn()).fill(0));
                     this.matrix.setData(generatedMatrix);
                     console.log("State átállítva: mátrix feltöltése manuálisan.");
-                    this.matrix.setState(new ManualMatrixFillState());
-                    resolve();
+                    this.matrix.setState(new ManualMatrixFillState(this.matrix));
+                    resolve(await this.matrix.manualMatrixFill(reader));
                 }
             })
         })

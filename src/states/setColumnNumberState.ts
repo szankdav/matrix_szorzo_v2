@@ -1,8 +1,8 @@
-import { MatrixState } from "../states/matrixState";
-import { ChooseMatrixGenerateMethodState } from "./chooseMatrixGenerateMethodState";
-import { InputValidate } from "./inputValidate";
-import { Matrix } from "./matrix"
-import { TerminalReader } from "./terminalReader";
+import { MatrixState } from "./matrixState";
+import { ChooseMatrixGenerateMethodState } from "../states/chooseMatrixGenerateMethodState";
+import { InputValidate } from "../classes/inputValidate";
+import { Matrix } from "../classes/matrix"
+import { TerminalReader } from "../classes/terminalReader";
 
 export class SetColumnNumberState implements MatrixState {
     private matrix: Matrix;

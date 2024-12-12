@@ -1,5 +1,5 @@
 import { MatrixState } from "../states/matrixState";
-import { SetRowNumberState } from "./setRowNumberState";
+import { SetRowNumberState } from "../states/setRowNumberState";
 import { TerminalReader } from "./terminalReader";
 
 export class Matrix implements MatrixState{
@@ -69,6 +69,6 @@ export class Matrix implements MatrixState{
     }
     
     manualMatrixFill(reader: TerminalReader): Promise<void> {
-        throw new Error("Method not implemented.");
+        return this.currentState.manualMatrixFill(reader);
     }
 }

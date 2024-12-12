@@ -11,10 +11,10 @@ const main = async () => {
     // Meghivjuk a matrix setNumberForColumn fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
     await matrix.setNumberForColumn(reader);
     console.log(`A megadott számok: ${matrix.getMatrixRow()} sor, ${matrix.getMatrixColumn()} oszlop.`);
-    // Meghivjuk a matrix generateMatrix fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
-    matrix.generateMatrix();
+    // Meghivjuk a matrix chooseMatrixGenerateMethod fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
+    await matrix.chooseMatrixGenerateMethod(reader);
     // Meghivjuk a matrix toString fuggvenyt, ami formazva megjeleniti a matrixunkat
-    console.log(`A generált mátrix:\n${matrix.toString()}`);
+    console.log(`A manuálisan feltöltött mátrix:\n${matrix.toString()}`);
     console.log("Program vége, kilépés.")
     process.exit(0);
 }

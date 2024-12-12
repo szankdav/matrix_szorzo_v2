@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { Matrix } from "../classes/matrix";
 import { TerminalReader } from "../classes/terminalReader";
-import { SetColumnNumberState } from "../classes/setColumnNumberState";
+import { SetColumnNumberState } from "../states/setColumnNumberState";
 
 
 function mocked_reader(input: string = "") {

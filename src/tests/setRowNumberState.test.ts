@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { SetRowNumberState } from "../classes/setRowNumberState";
+import { SetRowNumberState } from "../states/setRowNumberState";
 import { Matrix } from "../classes/matrix";
 import { TerminalReader } from "../classes/terminalReader";
 

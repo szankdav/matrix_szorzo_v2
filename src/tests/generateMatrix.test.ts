@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { Matrix } from "../classes/matrix";
 import { TerminalReader } from "../classes/terminalReader";
-import { ChooseMatrixGenerateMethodState } from "../classes/chooseMatrixGenerateMethodState";
+import { ChooseMatrixGenerateMethodState } from "../states/chooseMatrixGenerateMethodState";
 
 
 function mocked_reader(input: string = "") {

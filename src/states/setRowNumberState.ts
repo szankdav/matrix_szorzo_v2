@@ -1,7 +1,7 @@
-import { MatrixState } from "../states/matrixState";
-import { InputValidate } from "./inputValidate";
-import { Matrix } from "./matrix";
-import { TerminalReader } from "./terminalReader";
+import { MatrixState } from "./matrixState";
+import { InputValidate } from "../classes/inputValidate";
+import { Matrix } from "../classes/matrix";
+import { TerminalReader } from "../classes/terminalReader";
 import { SetColumnNumberState } from "./setColumnNumberState";
 
 export class SetRowNumberState implements MatrixState {
