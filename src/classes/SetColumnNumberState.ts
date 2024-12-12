@@ -1,5 +1,5 @@
 import { MatrixState } from "../states/matrixState";
-import { GenerateMatrixState } from "./generateMatrixState";
+import { ChooseMatrixGenerateMethodState } from "./chooseMatrixGenerateMethodState";
 import { InputValidate } from "./inputValidate";
 import { Matrix } from "./matrix"
 import { TerminalReader } from "./terminalReader";
@@ -27,20 +27,24 @@ export class SetColumnNumberState implements MatrixState {
                     resolve(this.setNumberForColumn(reader));
                 }
                 else {
-                    this.matrix.column = validateResult;
-                    this.matrix.setState(new GenerateMatrixState(this.matrix));
+                    this.matrix.setColumn(validateResult);
+                    console.log("State átállítva: mátrix létrehozása a megadott sorok és oszlopok számával.")
+                    this.matrix.setState(new ChooseMatrixGenerateMethodState(this.matrix));
                     resolve();
                 }
             })
         })
     }
 
-    setRangeForMatrix(reader: TerminalReader): Promise<void> {
+    chooseMatrixGenerateMethod(reader: TerminalReader): Promise<void> {
         throw new Error("Method not implemented.");
     }
 
-    generateMatrix(): void {
+    randomWithRangeMatrixFill(reader: TerminalReader): Promise<void> {
         throw new Error("Method not implemented.");
     }
-
+    
+    manualMatrixFill(reader: TerminalReader): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
 } 

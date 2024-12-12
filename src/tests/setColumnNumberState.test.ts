@@ -21,7 +21,7 @@ describe('setColumnNumberState tests', () => {
     it('should set matrix column if the given input value is valid', async () => {
         let mocked_setColumnNumberState: SetColumnNumberState = new SetColumnNumberState(matrix);
         await mocked_setColumnNumberState.setNumberForColumn(mocked_reader("5"))
-        expect(matrix.column).equal(5)
+        expect(matrix.getMatrixColumn()).equal(5)
     })
 
     it('should call self again if the given input is negative', async () => {
@@ -39,7 +39,7 @@ describe('setColumnNumberState tests', () => {
             }
         }) as typeof reader.rl.question
         await mocked_setColumnNumberState.setNumberForColumn(reader)
-        expect(matrix.column).equal(5)
+        expect(matrix.getMatrixColumn()).equal(5)
         expect(spy).toHaveBeenCalledTimes(2)
     })
 
@@ -58,7 +58,7 @@ describe('setColumnNumberState tests', () => {
             }
         }) as typeof reader.rl.question
         await mocked_setColumnNumberState.setNumberForColumn(reader)
-        expect(matrix.column).equal(5)
+        expect(matrix.getMatrixColumn()).equal(5)
         expect(spy).toHaveBeenCalledTimes(2)
     })
 
@@ -77,7 +77,7 @@ describe('setColumnNumberState tests', () => {
             }
         }) as typeof reader.rl.question
         await mocked_setColumnNumberState.setNumberForColumn(reader)
-        expect(matrix.column).equal(5)
+        expect(matrix.getMatrixColumn()).equal(5)
         expect(spy).toHaveBeenCalledTimes(2)
     })
 })

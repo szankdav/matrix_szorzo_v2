@@ -23,7 +23,8 @@ export class SetRowNumberState implements MatrixState {
                     resolve(this.setNumberForRow(reader));
                 }
                 else {
-                    this.matrix.row = validateResult;
+                    this.matrix.setRow(validateResult);
+                    console.log("State átállítva: oszlopok számának bekérése.")
                     this.matrix.setState(new SetColumnNumberState(this.matrix))
                     resolve();
                 }
@@ -35,11 +36,15 @@ export class SetRowNumberState implements MatrixState {
         throw new Error("Method not implemented.");
     }
 
-    setRangeForMatrix(reader: TerminalReader): Promise<void> {
+    chooseMatrixGenerateMethod(reader: TerminalReader): Promise<void> {
         throw new Error("Method not implemented.");
     }
 
-    generateMatrix(): void {
+    randomWithRangeMatrixFill(reader: TerminalReader): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    
+    manualMatrixFill(reader: TerminalReader): Promise<void> {
         throw new Error("Method not implemented.");
     }
 

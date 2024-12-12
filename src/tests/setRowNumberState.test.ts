@@ -21,7 +21,7 @@ describe('setRowNumberState tests', () => {
     it('should set matrix row if the given input value is valid', async () => {
         let mocked_setRowNumberState: SetRowNumberState = new SetRowNumberState(matrix);
         await mocked_setRowNumberState.setNumberForRow(mocked_reader("5"))
-        expect(matrix.row).equal(5)
+        expect(matrix.getMatrixRow()).equal(5)
     })
 
     it('should call self again if the given input is negative', async () => {
@@ -39,7 +39,7 @@ describe('setRowNumberState tests', () => {
             }
         }) as typeof reader.rl.question
         await mocked_setRowNumberState.setNumberForRow(reader)
-        expect(matrix.row).equal(5)
+        expect(matrix.getMatrixRow()).equal(5)
         expect(spy).toHaveBeenCalledTimes(2)
     })
 
@@ -58,7 +58,7 @@ describe('setRowNumberState tests', () => {
             }
         }) as typeof reader.rl.question
         await mocked_setRowNumberState.setNumberForRow(reader)
-        expect(matrix.row).equal(5)
+        expect(matrix.getMatrixRow()).equal(5)
         expect(spy).toHaveBeenCalledTimes(2)
     })
 
@@ -77,7 +77,7 @@ describe('setRowNumberState tests', () => {
             }
         }) as typeof reader.rl.question
         await mocked_setRowNumberState.setNumberForRow(reader)
-        expect(matrix.row).equal(5)
+        expect(matrix.getMatrixRow()).equal(5)
         expect(spy).toHaveBeenCalledTimes(2)
     })
 })

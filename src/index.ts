@@ -8,15 +8,14 @@ const main = async () => {
     const matrix: Matrix = new Matrix();
     // Meghivjuk a matrix setNumberForRow fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
     await matrix.setNumberForRow(reader);
-    console.log(matrix.row);
     // Meghivjuk a matrix setNumberForColumn fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
     await matrix.setNumberForColumn(reader);
-    console.log(matrix.column);
-    console.log(`Rownumbers: ${matrix.row}, columnumbers: ${matrix.column}`);
+    console.log(`A megadott számok: ${matrix.getMatrixRow()} sor, ${matrix.getMatrixColumn()} oszlop.`);
     // Meghivjuk a matrix generateMatrix fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
     matrix.generateMatrix();
     // Meghivjuk a matrix toString fuggvenyt, ami formazva megjeleniti a matrixunkat
-    console.log(`The generated matrix:\n${matrix.toString()}`);
+    console.log(`A generált mátrix:\n${matrix.toString()}`);
+    console.log("Program vége, kilépés.")
     process.exit(0);
 }
 
