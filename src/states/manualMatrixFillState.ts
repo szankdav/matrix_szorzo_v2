@@ -9,9 +9,9 @@ export class ManualMatrixFillState implements State {
     private reader: TerminalReader;
     private context: Context;
 
-    constructor(matrix: Matrix, context: Context) {
+    constructor(matrix: Matrix, reader: TerminalReader, context: Context) {
         this.matrix = matrix;
-        this.reader = new TerminalReader();
+        this.reader = reader;
         this.context = context;
     }
 

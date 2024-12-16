@@ -1,83 +1,90 @@
-// import { describe, expect, it, vi } from "vitest";
-// import { Matrix } from "../classes/matrix";
-// import { TerminalReader } from "../classes/terminalReader";
-// import { SetColumnNumberState } from "../states/setColumnNumberState";
+import { describe, expect, expectTypeOf, it, vi } from "vitest";
+import { SetRowNumberState } from "../states/setRowNumberState";
+import { Matrix } from "../classes/matrix";
+import { TerminalReader } from "../classes/terminalReader";
+import { Context } from "../classes/context";
+import { SetColumnNumberState } from "../states/setColumnNumberState";
+import { ChooseMatrixGenerateMethodState } from "../states/chooseMatrixGenerateMethodState";
 
 
-// function mocked_reader(input: string = "") {
-//     let mocked_reader = {
-//         rl: {
-//             question: (_: string, callback: (answer: string) => void): void => {
-//                 callback(input);
-//             }
-//         }
-//     }
-//     return mocked_reader as unknown as TerminalReader;
-// }
+describe('setColumnNumberState next tests', () => {
+    it("should set the matrix row number", async () => {
+        const matrix = new Matrix();
+        vi.spyOn(matrix, "setRow");
 
-// const matrix = new Matrix();
+        const mockContext = {
+            setState: vi.fn(),
+        } as unknown as Context;
 
-// describe('setColumnNumberState tests', () => {
-//     it('should set matrix column if the given input value is valid', async () => {
-//         let mocked_setColumnNumberState: SetColumnNumberState = new SetColumnNumberState(matrix);
-//         await mocked_setColumnNumberState.setNumberForColumn(mocked_reader("5"))
-//         expect(matrix.getMatrixColumn()).equal(5)
-//     })
+        const mockReader = {
+            readNumber: vi.fn().mockResolvedValue(3),
+        } as unknown as TerminalReader;
 
-//     it('should call self again if the given input is negative', async () => {
-//         let mocked_setColumnNumberState: SetColumnNumberState = new SetColumnNumberState(matrix);
-//         let calls = 0;
-//         let reader = mocked_reader();
-//         const spy = vi.spyOn(mocked_setColumnNumberState, "setNumberForColumn")
-//         reader.rl.question = vi.fn((_:string, callback: (answer: string) => void) => {
-//             calls++;
-//             if(calls === 1){
-//                 callback("-5")
-//             }
-//             else{
-//                 callback("5")
-//             }
-//         }) as typeof reader.rl.question
-//         await mocked_setColumnNumberState.setNumberForColumn(reader)
-//         expect(matrix.getMatrixColumn()).equal(5)
-//         expect(spy).toHaveBeenCalledTimes(2)
-//     })
+        const setColumnNumberState = new SetColumnNumberState(matrix, mockReader, mockContext);
 
-//     it('should call self again if the given input is not a number', async () => {
-//         let mocked_setColumnNumberState: SetColumnNumberState = new SetColumnNumberState(matrix);
-//         let calls = 0;
-//         let reader = mocked_reader();
-//         const spy = vi.spyOn(mocked_setColumnNumberState, "setNumberForColumn")
-//         reader.rl.question = vi.fn((_:string, callback: (answer: string) => void) => {
-//             calls++;
-//             if(calls === 1){
-//                 callback("d")
-//             }
-//             else{
-//                 callback("5")
-//             }
-//         }) as typeof reader.rl.question
-//         await mocked_setColumnNumberState.setNumberForColumn(reader)
-//         expect(matrix.getMatrixColumn()).equal(5)
-//         expect(spy).toHaveBeenCalledTimes(2)
-//     })
+        await setColumnNumberState.next();
 
-//     it('should call self again if the given input is not one number', async () => {
-//         let mocked_setColumnNumberState: SetColumnNumberState = new SetColumnNumberState(matrix);
-//         let calls = 0;
-//         let reader = mocked_reader();
-//         const spy = vi.spyOn(mocked_setColumnNumberState, "setNumberForColumn")
-//         reader.rl.question = vi.fn((_:string, callback: (answer: string) => void) => {
-//             calls++;
-//             if(calls === 1){
-//                 callback("5 4")
-//             }
-//             else{
-//                 callback("5")
-//             }
-//         }) as typeof reader.rl.question
-//         await mocked_setColumnNumberState.setNumberForColumn(reader)
-//         expect(matrix.getMatrixColumn()).equal(5)
-//         expect(spy).toHaveBeenCalledTimes(2)
-//     })
-// })
+        expect(matrix.getMatrixColumn()).toBe(3);
+    });
+
+    it('should call matrix setRow function', async () => {
+        const mockMatrix = {
+            setColumn: vi.fn(),
+        } as unknown as Matrix;
+
+        const mockContext = {
+            setState: vi.fn(),
+        } as unknown as Context;
+
+        const mockReader = {
+            readNumber: vi.fn().mockResolvedValue(3),
+        } as unknown as TerminalReader;
+
+        const setColumnNumberState = new SetColumnNumberState(mockMatrix, mockReader, mockContext);
+
+        await setColumnNumberState.next();
+
+        expect(mockMatrix.setColumn).toHaveBeenCalledWith(3);
+    })
+
+    it('should call setState with an instance of ChooseMatrixGenerateMethodState', async () => {
+        const mockMatrix = {
+            setColumn: vi.fn(),
+        } as unknown as Matrix;
+
+        const mockContext = {
+            setState: vi.fn(),
+        } as unknown as Context;
+
+        const mockReader = {
+            readNumber: vi.fn().mockResolvedValue(3),
+        } as unknown as TerminalReader;
+
+        const setColumnNumberState = new SetColumnNumberState(mockMatrix, mockReader, mockContext);
+        const chooseMatrixGenerateMethodState = new ChooseMatrixGenerateMethodState(mockMatrix, mockReader, mockContext);
+
+        await setColumnNumberState.next();
+
+        expect(chooseMatrixGenerateMethodState).toBeInstanceOf(ChooseMatrixGenerateMethodState);
+        expect(mockContext.setState).toHaveBeenCalledWith((chooseMatrixGenerateMethodState));
+    })
+
+    it('should call readNumber with the proper text', async () => {
+        const mockMatrix = {
+            setColumn: vi.fn(),
+        } as unknown as Matrix;
+
+        const mockContext = {
+            setState: vi.fn(),
+        } as unknown as Context;
+
+        const mockReader = {
+            readNumber: vi.fn().mockResolvedValue(3),
+        } as unknown as TerminalReader;
+
+        const setColumnNumberState = new SetColumnNumberState(mockMatrix, mockReader, mockContext);
+
+        await setColumnNumberState.next();
+        expect(mockReader.readNumber).toHaveBeenCalledWith("Kérem írja be a mátrix oszlopainak számát: ");
+    })
+})

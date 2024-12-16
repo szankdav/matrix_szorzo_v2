@@ -9,9 +9,9 @@ export class SetColumnNumberState implements State {
     private reader: TerminalReader;
     private context: Context;
 
-    constructor(matrix: Matrix, context: Context) {
+    constructor(matrix: Matrix, reader: TerminalReader, context: Context) {
         this.matrix = matrix;
-        this.reader = new TerminalReader();
+        this.reader = reader;
         this.context = context;
     }
 
@@ -20,6 +20,6 @@ export class SetColumnNumberState implements State {
     async next(): Promise<void | null> {
         const colNumber: number = await this.reader.readNumber("Kérem írja be a mátrix oszlopainak számát: ");
         this.matrix.setColumn(colNumber);
-        this.context.setState(new ChooseMatrixGenerateMethodState(this.matrix, this.context));
+        this.context.setState(new ChooseMatrixGenerateMethodState(this.matrix, this.reader, this.context));
     }
 } 
