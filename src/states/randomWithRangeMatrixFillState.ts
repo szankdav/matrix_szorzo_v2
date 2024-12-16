@@ -1,21 +1,11 @@
-import { MatrixState } from "./matrixState";
-import { TerminalReader } from "../classes/terminalReader";
+import { State } from "../interfaces/state";
 
-export class RandomWithRangeMatrixFill implements MatrixState{
-    setNumberForRow(reader: TerminalReader): Promise<void> {
+export class RandomWithRangeMatrixFill implements State{
+    run(): void {
+        
+    }
+    next(): Promise<void | null> {
         throw new Error("Method not implemented.");
     }
-    setNumberForColumn(reader: TerminalReader): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    randomWithRangeMatrixFill(reader: TerminalReader): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    chooseMatrixGenerateMethod(reader: TerminalReader): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    manualMatrixFill(reader: TerminalReader): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    
+
 }

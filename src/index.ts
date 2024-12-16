@@ -1,22 +1,18 @@
+import { Context } from "./classes/context";
 import { Matrix } from "./classes/matrix";
-import { TerminalReader } from "./classes/terminalReader";
+import { SetRowNumberState } from "./states/setRowNumberState";
 
-const main = async () => {
-    // Letrehozzuk a readert a user inputok terminalrol torteno fogadasahoz
-    const reader: TerminalReader = new TerminalReader();
-    // Letrehozunk egy uj matrixot
-    const matrix: Matrix = new Matrix();
-    // Meghivjuk a matrix setNumberForRow fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
-    await matrix.setNumberForRow(reader);
-    // Meghivjuk a matrix setNumberForColumn fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
-    await matrix.setNumberForColumn(reader);
-    console.log(`A megadott számok: ${matrix.getMatrixRow()} sor, ${matrix.getMatrixColumn()} oszlop.`);
-    // Meghivjuk a matrix chooseMatrixGenerateMethod fuggvenyt, ami az osztalyon belul az aktualisan beallitott allapot megfelelo fuggvenyet fogja meghivni
-    await matrix.chooseMatrixGenerateMethod(reader);
-    // Meghivjuk a matrix toString fuggvenyt, ami formazva megjeleniti a matrixunkat
-    console.log(`A manuálisan feltöltött mátrix:\n${matrix.toString()}`);
-    console.log("Program vége, kilépés.")
+const matrix = new Matrix();
+const context = new Context();
+const initialState = new SetRowNumberState(matrix, context);
+context.setState(initialState);
+
+(async function main() {
+    do {
+        context.run();
+        await context.next();
+    } while (context.getState() !== null)
+
+    console.log("A program kilép!");
     process.exit(0);
-}
-
-main();
+})();

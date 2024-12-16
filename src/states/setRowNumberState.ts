@@ -1,51 +1,25 @@
-import { MatrixState } from "./matrixState";
-import { InputValidate } from "../classes/inputValidate";
+import { Context } from "../classes/context";
 import { Matrix } from "../classes/matrix";
 import { TerminalReader } from "../classes/terminalReader";
+import { State } from "../interfaces/state";
 import { SetColumnNumberState } from "./setColumnNumberState";
 
-export class SetRowNumberState implements MatrixState {
+export class SetRowNumberState implements State {
     private matrix: Matrix;
+    private reader: TerminalReader;
+    private context: Context;
 
-    constructor(matrix: Matrix) {
+    constructor(matrix: Matrix, context: Context) {
         this.matrix = matrix;
+        this.reader = new TerminalReader();
+        this.context = context;
     }
 
-    // Feltesszuk a kerdest, majd az inputot validaljuk. Ha nem jo az input, rekurzivan ujrahivjuk a fuggvenyt
-    //Ha a validalas sikeres, akkor a matrixnak beallitjuk a sort, majd a matrix allapotat modositjuk az oszlopok beolvasasa allapotra
-    setNumberForRow(reader: TerminalReader): Promise<void> {
-        return new Promise((resolve) => {
-            let validateResult: number | null;
-            reader.rl.question("Kérem írja be a mátrix sorainak számát: ", (answer) => {
-                const validator = new InputValidate();
-                validateResult = validator.validateAsNumber(answer);
-                if (validateResult == null) {
-                    resolve(this.setNumberForRow(reader));
-                }
-                else {
-                    this.matrix.setRow(validateResult);
-                    console.log("State átállítva: oszlopok számának bekérése.")
-                    this.matrix.setState(new SetColumnNumberState(this.matrix))
-                    resolve();
-                }
-            })
-        })
-    }
+    run(): void { };
 
-    setNumberForColumn(): Promise<void> {
-        throw new Error("Method not implemented.");
+    async next(): Promise<void | null> {
+        const rowNumber: number = await this.reader.readNumber("Kérem írja be a mátrix sorainak számát: ");
+        this.matrix.setRow(rowNumber);
+        this.context.setState(new SetColumnNumberState(this.matrix, this.context));
     }
-
-    chooseMatrixGenerateMethod(reader: TerminalReader): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-
-    randomWithRangeMatrixFill(reader: TerminalReader): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    
-    manualMatrixFill(reader: TerminalReader): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-
 }
