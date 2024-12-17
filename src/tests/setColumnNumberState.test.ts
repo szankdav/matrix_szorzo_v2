@@ -47,7 +47,7 @@ describe('setColumnNumberState next tests', () => {
         expect(mockMatrix.setColumn).toHaveBeenCalledWith(3);
     })
 
-    it('should call setState with an instance of ChooseMatrixGenerateMethodState', async () => {
+    it('should call setCurrentState with an instance of ChooseMatrixGenerateMethodState', async () => {
         const mockMatrix = {
             setColumn: vi.fn(),
         } as unknown as Matrix;
@@ -66,7 +66,7 @@ describe('setColumnNumberState next tests', () => {
         await setColumnNumberState.next();
 
         expect(chooseMatrixGenerateMethodState).toBeInstanceOf(ChooseMatrixGenerateMethodState);
-        expect(mockContext.setCurrentState).toHaveBeenCalledWith((chooseMatrixGenerateMethodState));
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith(chooseMatrixGenerateMethodState);
     })
 
     it('should call readNumber with the proper text', async () => {

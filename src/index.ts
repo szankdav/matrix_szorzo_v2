@@ -28,8 +28,7 @@ context.setCurrentState(initialState);
 
 
 
-    
-    console.log("A program kilép!");
     console.log("\n");
+    console.log("A program kilép!");
     process.exit(0);
 })();

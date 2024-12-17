@@ -53,7 +53,7 @@ describe('setRowNumberState next tests', () => {
         expect(mockMatrix_A.setRow).toHaveBeenCalledWith(3);
     })
 
-    it('should call setState with an instance of SetColumnNumberState', async () => {
+    it('should call setCurrentState with an instance of SetColumnNumberState', async () => {
         const mockMatrix_A = {
             setRow: vi.fn(),
         } as unknown as Matrix;
@@ -74,6 +74,7 @@ describe('setRowNumberState next tests', () => {
         const setColumnNumberState = new SetColumnNumberState(mockMatrix_A, mockReader, mockContext);
 
         await setRowNumberState.next();
+
         expect(setColumnNumberState).toBeInstanceOf(SetColumnNumberState);
         expect(mockContext.setCurrentState).toHaveBeenCalledWith(setColumnNumberState);
     })
@@ -99,5 +100,31 @@ describe('setRowNumberState next tests', () => {
 
         await setRowNumberState.next();
         expect(mockReader.readNumber).toHaveBeenCalledWith("Kérem írja be a mátrix sorainak számát: ");
+    })
+
+    it('should call next() again if matrix_A column and matrix_B row is not equal', async () => {
+        const mockMatrix_A = {
+            setRow: vi.fn(),
+            getMatrixColumn: vi.fn().mockReturnValue(2),
+        } as unknown as Matrix;
+
+        const mockMatrix_B = {
+            setRow: vi.fn(),
+        } as unknown as Matrix;
+
+        const mockContext = {
+            setCurrentState: vi.fn(),
+        } as unknown as Context;
+
+        const mockReader = {
+            readNumber: vi.fn().mockResolvedValue(2).mockResolvedValueOnce(3),
+        } as unknown as TerminalReader;
+
+        const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "B");
+        vi.spyOn(setRowNumberState, "next");
+
+        await setRowNumberState.next();
+        
+        expect(setRowNumberState.next).toHaveBeenCalledTimes(2);
     })
 })

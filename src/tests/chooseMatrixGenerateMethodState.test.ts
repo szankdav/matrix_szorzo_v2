@@ -72,7 +72,7 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         expect(matrix.getMatrixData()).toStrictEqual([[0, 0, 0], [0, 0, 0]]);
     })
 
-    it('should call setState with an instance of ManualMatrixFillState if answer is "i"', async () => {
+    it('should call setCurrentState with an instance of ManualMatrixFillState if answer is "i"', async () => {
         const mockMatrix = {
             setData: vi.fn(),
             getMatrixRow: vi.fn(),
@@ -95,7 +95,7 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         expect(mockContext.setCurrentState).toHaveBeenCalledWith(manualMatrixFillState);
     })
 
-    it('should call setState with an instance of RandomWithRangeMatrixFill if answer is "n"', async () => {
+    it('should call setCurrentState with an instance of RandomWithRangeMatrixFill if answer is "n"', async () => {
         const mockMatrix = {
             setData: vi.fn(),
             getMatrixRow: vi.fn(),
