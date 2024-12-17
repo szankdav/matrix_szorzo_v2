@@ -25,13 +25,13 @@ export class ChooseMatrixGenerateMethodState implements State {
             const generatedMatrix = Array.from({ length: this.matrix.getMatrixRow() }, () => new Array(this.matrix.getMatrixColumn()).fill(0));
             this.matrix.setData(generatedMatrix);
             console.log("State átállítva: mátrix feltöltése véletlenszerű számokkal.");
-            this.context.setState(new RandomWithRangeMatrixFill(this.matrix, this.reader, this.context));
+            this.context.setCurrentState(new RandomWithRangeMatrixFill(this.matrix, this.reader, this.context));
         }
         else if(answer === "I") {
             const generatedMatrix = Array.from({ length: this.matrix.getMatrixRow() }, () => new Array(this.matrix.getMatrixColumn()).fill(0));
             this.matrix.setData(generatedMatrix);
             console.log("State átállítva: mátrix feltöltése manuálisan.");
-            this.context.setState(new ManualMatrixFillState(this.matrix, this.reader, this.context));
+            this.context.setCurrentState(new ManualMatrixFillState(this.matrix, this.reader, this.context));
         }
     }
 }

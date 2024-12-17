@@ -8,79 +8,94 @@ import { SetColumnNumberState } from "../states/setColumnNumberState";
 
 describe('setRowNumberState next tests', () => {
     it("should set the matrix row number", async () => {
-        const matrix = new Matrix();
-        vi.spyOn(matrix, "setRow");
+        const matrix_A = new Matrix();
+        vi.spyOn(matrix_A, "setRow");
+
+        const matrix_B = new Matrix();
+        vi.spyOn(matrix_A, "setRow");
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
             readNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
-        const setRowNumberState = new SetRowNumberState(matrix, mockReader, mockContext);
+        const setRowNumberState = new SetRowNumberState(matrix_A, matrix_B, mockReader, mockContext, "A");
 
         await setRowNumberState.next();
 
-        expect(matrix.getMatrixRow()).toBe(3);
+        expect(matrix_A.getMatrixRow()).toBe(3);
     });
 
     it('should call matrix setRow function', async () => {
-        const mockMatrix = {
+        const mockMatrix_A = {
+            setRow: vi.fn(),
+        } as unknown as Matrix;
+
+        const mockMatrix_B = {
             setRow: vi.fn(),
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
             readNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
-        const setRowNumberState = new SetRowNumberState(mockMatrix, mockReader, mockContext);
+        const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "A");
 
         await setRowNumberState.next();
 
-        expect(mockMatrix.setRow).toHaveBeenCalledWith(3);
+        expect(mockMatrix_A.setRow).toHaveBeenCalledWith(3);
     })
 
     it('should call setState with an instance of SetColumnNumberState', async () => {
-        const mockMatrix = {
+        const mockMatrix_A = {
+            setRow: vi.fn(),
+        } as unknown as Matrix;
+
+        const mockMatrix_B = {
             setRow: vi.fn(),
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
             readNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
-        const setRowNumberState = new SetRowNumberState(mockMatrix, mockReader, mockContext);
-        const setColumnNumberState = new SetColumnNumberState(mockMatrix, mockReader, mockContext);
+        const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "A");
+        const setColumnNumberState = new SetColumnNumberState(mockMatrix_A, mockReader, mockContext);
 
         await setRowNumberState.next();
         expect(setColumnNumberState).toBeInstanceOf(SetColumnNumberState);
-        expect(mockContext.setState).toHaveBeenCalledWith(setColumnNumberState);
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith(setColumnNumberState);
     })
 
     it('should call readNumber with the proper text', async () => {
-        const mockMatrix = {
+        const mockMatrix_A = {
+            setRow: vi.fn(),
+        } as unknown as Matrix;
+
+        const mockMatrix_B = {
             setRow: vi.fn(),
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
             readNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
-        const setRowNumberState = new SetRowNumberState(mockMatrix, mockReader, mockContext);
+        const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "A");
 
         await setRowNumberState.next();
         expect(mockReader.readNumber).toHaveBeenCalledWith("Kérem írja be a mátrix sorainak számát: ");

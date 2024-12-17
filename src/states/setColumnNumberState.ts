@@ -20,6 +20,6 @@ export class SetColumnNumberState implements State {
     async next(): Promise<void | null> {
         const colNumber: number = await this.reader.readNumber("Kérem írja be a mátrix oszlopainak számát: ");
         this.matrix.setColumn(colNumber);
-        this.context.setState(new ChooseMatrixGenerateMethodState(this.matrix, this.reader, this.context));
+        this.context.setCurrentState(new ChooseMatrixGenerateMethodState(this.matrix, this.reader, this.context));
     }
 } 

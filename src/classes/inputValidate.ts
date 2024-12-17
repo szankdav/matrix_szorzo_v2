@@ -1,6 +1,6 @@
 export class InputValidate {
     validateAsNumber(input: string): number | null {
-        const num = parseInt(input);
+        const num = Number(input);
         if (input.split(" ").length > 1) {
             console.log("Csak egy számot adhat meg!");
             return null;
@@ -25,6 +25,19 @@ export class InputValidate {
             return false;
         } else {
             return true;
+        }
+    }
+
+    validateAsRange(input: string): number | null {
+        const num = Number(input);
+        if (input.split(" ").length > 1) {
+            console.log("Csak egy számot adhat meg!");
+            return null;
+        } else if (isNaN(num)) {
+            console.log("Csak számokat adhat meg!");
+            return null;
+        } else {
+            return num;
         }
     }
 }

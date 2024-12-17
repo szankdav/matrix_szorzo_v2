@@ -13,7 +13,7 @@ describe('setColumnNumberState next tests', () => {
         vi.spyOn(matrix, "setRow");
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
@@ -33,7 +33,7 @@ describe('setColumnNumberState next tests', () => {
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
@@ -53,7 +53,7 @@ describe('setColumnNumberState next tests', () => {
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
@@ -66,7 +66,7 @@ describe('setColumnNumberState next tests', () => {
         await setColumnNumberState.next();
 
         expect(chooseMatrixGenerateMethodState).toBeInstanceOf(ChooseMatrixGenerateMethodState);
-        expect(mockContext.setState).toHaveBeenCalledWith((chooseMatrixGenerateMethodState));
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith((chooseMatrixGenerateMethodState));
     })
 
     it('should call readNumber with the proper text', async () => {
@@ -75,7 +75,7 @@ describe('setColumnNumberState next tests', () => {
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {

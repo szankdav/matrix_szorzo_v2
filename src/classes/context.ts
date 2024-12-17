@@ -2,9 +2,11 @@ import { State } from "../interfaces/state";
 
 export class Context{
     private currentState: State | null;
+    private initialState: State | null;
 
     constructor(){
         this.currentState = null;
+        this.initialState = null;
     }
 
     run():void{
@@ -15,11 +17,19 @@ export class Context{
         await this.currentState?.next();
     }
 
-    public setState(state: State | null):void{
+    public setCurrentState(state: State | null){
         this.currentState = state;
     }
 
-    public getState(){
+    public getCurrentState(){
         return this.currentState;
+    }
+
+    public setInitialState(state: State | null){
+        this.initialState = state;
+    }
+
+    public getInitialState(): State{
+        return this.initialState!;
     }
 }

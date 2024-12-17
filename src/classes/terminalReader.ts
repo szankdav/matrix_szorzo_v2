@@ -40,4 +40,20 @@ export class TerminalReader {
             })
         })
     }
+
+    readRange(question: string): Promise<number> {
+        return new Promise((resolve) => {
+            let validateResult: number | null;
+            this.rl.question(question, (answer) => {
+                const validator = new InputValidate();
+                validateResult = validator.validateAsRange(answer);
+                if (validateResult == null) {
+                    resolve(this.readRange(question));
+                }
+                else {
+                    resolve(validateResult);
+                }
+            })
+        })
+    }
 }

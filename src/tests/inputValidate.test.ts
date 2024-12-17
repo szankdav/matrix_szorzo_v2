@@ -56,3 +56,26 @@ describe('TextInputValidate tests', () => {
         expect(res).toBe(false);
     })
 })
+
+describe('RangeInpuValidate tests', () => {
+    it('should return the input as number if the given input is a valid number', async () => {
+        const validator: InputValidate = new InputValidate()
+        const res = validator.validateAsRange("5")
+        expect(res).equal(5)
+        expect(res).toBeTypeOf("number")
+    })
+
+    it('should return null if the given input is not a number', async () => {
+        const validator: InputValidate = new InputValidate()
+        const res = validator.validateAsRange("d")
+        expect(res).equal(null)
+        expect(res).toBeNull
+    })
+
+    it('should return null if the given input is not a number', async () => {
+        const validator: InputValidate = new InputValidate()
+        const res = validator.validateAsRange("5d")
+        expect(res).equal(null)
+        expect(res).toBeNull
+    })
+})

@@ -15,7 +15,7 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
@@ -34,7 +34,7 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         matrix.setColumn(3);
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
@@ -58,7 +58,7 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         matrix.setColumn(3);
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
@@ -80,7 +80,7 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
@@ -92,7 +92,7 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
 
         await chooseMatrixGenerateMethodState.next();
         expect(manualMatrixFillState).toBeInstanceOf(ManualMatrixFillState);
-        expect(mockContext.setState).toHaveBeenCalledWith(manualMatrixFillState);
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith(manualMatrixFillState);
     })
 
     it('should call setState with an instance of RandomWithRangeMatrixFill if answer is "n"', async () => {
@@ -103,7 +103,7 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         } as unknown as Matrix;
 
         const mockContext = {
-            setState: vi.fn(),
+            setCurrentState: vi.fn(),
         } as unknown as Context;
 
         const mockReader = {
@@ -115,6 +115,6 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
 
         await chooseMatrixGenerateMethodState.next();
         expect(randomWithRangeMatrixFill).toBeInstanceOf(RandomWithRangeMatrixFill);
-        expect(mockContext.setState).toHaveBeenCalledWith(randomWithRangeMatrixFill);
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith(randomWithRangeMatrixFill);
     })
 });
