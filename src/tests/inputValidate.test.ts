@@ -5,21 +5,21 @@ import { InputValidate } from "../classes/inputValidate";
 describe('NumberInputValidate tests', () => {
     it('should return the input as number if the given input is a valid number', async () => {
         const validator: InputValidate = new InputValidate()
-        const res = validator.validateAsNumber("5")
+        const res = validator.validateAsNaturalNumber("5")
         expect(res).equal(5)
         expect(res).toBeTypeOf("number")
     })
 
     it('should return null if the given input is not a number', async () => {
         const validator: InputValidate = new InputValidate()
-        const res = validator.validateAsNumber("d")
+        const res = validator.validateAsNaturalNumber("d")
         expect(res).equal(null)
         expect(res).toBeNull
     })
 
     it('should call self again if the given input is a negative number', async () => {
         const validator: InputValidate = new InputValidate()
-        const res = validator.validateAsNumber("-5")
+        const res = validator.validateAsNaturalNumber("-5")
         expect(res).equal(null)
         expect(res).toBeNull
     })
@@ -60,21 +60,21 @@ describe('TextInputValidate tests', () => {
 describe('RangeInpuValidate tests', () => {
     it('should return the input as number if the given input is a valid number', async () => {
         const validator: InputValidate = new InputValidate()
-        const res = validator.validateAsRange("5")
+        const res = validator.validateAsWholeNumber("5")
         expect(res).equal(5)
         expect(res).toBeTypeOf("number")
     })
 
     it('should return null if the given input is not a number', async () => {
         const validator: InputValidate = new InputValidate()
-        const res = validator.validateAsRange("d")
+        const res = validator.validateAsWholeNumber("d")
         expect(res).equal(null)
         expect(res).toBeNull
     })
 
     it('should return null if the given input is not a number', async () => {
         const validator: InputValidate = new InputValidate()
-        const res = validator.validateAsRange("5d")
+        const res = validator.validateAsWholeNumber("5d")
         expect(res).equal(null)
         expect(res).toBeNull
     })

@@ -21,8 +21,8 @@ export class RandomWithRangeMatrixFill implements State {
     }
     async next(): Promise<void | null> {
         let generatedMatrix = this.matrix.getMatrixData();
-        const lowerRange = await this.reader.readRange("Kérem adja meg a generálandó számok alsó határértékét: ");
-        const upperRange = await this.reader.readRange("Kérem adja meg a generálandó számok felső határértékét: ");
+        const lowerRange = await this.reader.readRangeOrMatrixNumber("Kérem adja meg a generálandó számok alsó határértékét: ");
+        const upperRange = await this.reader.readRangeOrMatrixNumber("Kérem adja meg a generálandó számok felső határértékét: ");
         for (let i = 0; i < generatedMatrix.length; i++) {
             for (let j = 0; j < generatedMatrix[i].length; j++) {
                 generatedMatrix[i][j] = Math.floor(Math.random() * (upperRange - lowerRange + 1) + lowerRange);

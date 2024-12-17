@@ -1,5 +1,5 @@
 export class InputValidate {
-    validateAsNumber(input: string): number | null {
+    validateAsNaturalNumber(input: string): number | null {
         const num = Number(input);
         if (input.split(" ").length > 1) {
             console.log("Csak egy számot adhat meg!");
@@ -28,7 +28,7 @@ export class InputValidate {
         }
     }
 
-    validateAsRange(input: string): number | null {
+    validateAsWholeNumber(input: string): number | null {
         const num = Number(input);
         if (input.split(" ").length > 1) {
             console.log("Csak egy számot adhat meg!");

@@ -19,7 +19,7 @@ describe('setRowNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
         const setRowNumberState = new SetRowNumberState(matrix_A, matrix_B, mockReader, mockContext, "A");
@@ -43,7 +43,7 @@ describe('setRowNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
         const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "A");
@@ -67,7 +67,7 @@ describe('setRowNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
         const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "A");
@@ -93,13 +93,13 @@ describe('setRowNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
         const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "A");
 
         await setRowNumberState.next();
-        expect(mockReader.readNumber).toHaveBeenCalledWith("Kérem írja be a mátrix sorainak számát: ");
+        expect(mockReader.readRowOrColNumber).toHaveBeenCalledWith("Kérem írja be a mátrix sorainak számát: ");
     })
 
     it('should call next() again if matrix_A column and matrix_B row is not equal', async () => {
@@ -117,7 +117,7 @@ describe('setRowNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(2).mockResolvedValueOnce(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(2).mockResolvedValueOnce(3),
         } as unknown as TerminalReader;
 
         const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "B");

@@ -25,7 +25,7 @@ describe('manualMatrixFillState next', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(4).mockResolvedValueOnce(1).mockResolvedValueOnce(2).mockResolvedValueOnce(3),
+            readRangeOrMatrixNumber: vi.fn().mockResolvedValue(4).mockResolvedValueOnce(1).mockResolvedValueOnce(2).mockResolvedValueOnce(3),
         } as unknown as TerminalReader;
 
         const manualMatrixFillState = new ManualMatrixFillState(mockMatrix, mockReader, mockContext);
@@ -36,7 +36,7 @@ describe('manualMatrixFillState next', () => {
         expect(mockMatrix.getMatrixData()).toStrictEqual([[1, 2], [3, 4]])
     })
 
-    it('should call reader.readNumber for every matrix position', async () => {
+    it('should call reader.readRangeOrMatrixNumber for every matrix position', async () => {
         const mockMatrix = {
             getMatrixData: vi.fn().mockReturnValue([
                 [0, 0],
@@ -56,14 +56,14 @@ describe('manualMatrixFillState next', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(1).mockResolvedValue(2).mockResolvedValue(3).mockResolvedValue(4),
+            readRangeOrMatrixNumber: vi.fn().mockResolvedValue(1).mockResolvedValue(2).mockResolvedValue(3).mockResolvedValue(4),
         } as unknown as TerminalReader;
 
         const manualMatrixFillState = new ManualMatrixFillState(mockMatrix, mockReader, mockContext);
 
         await manualMatrixFillState.next();
 
-        expect(mockReader.readNumber).toHaveBeenCalledTimes(4);
+        expect(mockReader.readRangeOrMatrixNumber).toHaveBeenCalledTimes(4);
     })
 
     it('should set context for creating B matrix if the currentMatrix in initialState is "A"', async () => {
@@ -86,7 +86,7 @@ describe('manualMatrixFillState next', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(1).mockResolvedValue(2).mockResolvedValue(3).mockResolvedValue(4),
+            readRangeOrMatrixNumber: vi.fn().mockResolvedValue(1).mockResolvedValue(2).mockResolvedValue(3).mockResolvedValue(4),
         } as unknown as TerminalReader;
 
         const manualMatrixFillState = new ManualMatrixFillState(mockMatrix, mockReader, mockContext);
@@ -117,7 +117,7 @@ describe('manualMatrixFillState next', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(1).mockResolvedValue(2).mockResolvedValue(3).mockResolvedValue(4),
+            readRangeOrMatrixNumber: vi.fn().mockResolvedValue(1).mockResolvedValue(2).mockResolvedValue(3).mockResolvedValue(4),
         } as unknown as TerminalReader;
 
         const manualMatrixFillState = new ManualMatrixFillState(mockMatrix, mockReader, mockContext);

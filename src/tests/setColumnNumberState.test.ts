@@ -17,7 +17,7 @@ describe('setColumnNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
         const setColumnNumberState = new SetColumnNumberState(matrix, mockReader, mockContext);
@@ -37,7 +37,7 @@ describe('setColumnNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
         const setColumnNumberState = new SetColumnNumberState(mockMatrix, mockReader, mockContext);
@@ -57,7 +57,7 @@ describe('setColumnNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
         const setColumnNumberState = new SetColumnNumberState(mockMatrix, mockReader, mockContext);
@@ -79,12 +79,12 @@ describe('setColumnNumberState next tests', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readNumber: vi.fn().mockResolvedValue(3),
+            readRowOrColNumber: vi.fn().mockResolvedValue(3),
         } as unknown as TerminalReader;
 
         const setColumnNumberState = new SetColumnNumberState(mockMatrix, mockReader, mockContext);
 
         await setColumnNumberState.next();
-        expect(mockReader.readNumber).toHaveBeenCalledWith("Kérem írja be a mátrix oszlopainak számát: ");
+        expect(mockReader.readRowOrColNumber).toHaveBeenCalledWith("Kérem írja be a mátrix oszlopainak számát: ");
     })
 })

@@ -9,14 +9,14 @@ export class TerminalReader {
         output: process.stdout
     });
 
-    readNumber(question: string): Promise<number> {
+    readRowOrColNumber(question: string): Promise<number> {
         return new Promise((resolve) => {
             let validateResult: number | null;
             this.rl.question(question, (answer) => {
                 const validator = new InputValidate();
-                validateResult = validator.validateAsNumber(answer);
+                validateResult = validator.validateAsNaturalNumber(answer);
                 if (validateResult == null) {
-                    resolve(this.readNumber(question));
+                    resolve(this.readRowOrColNumber(question));
                 }
                 else {
                     resolve(validateResult);
@@ -41,14 +41,14 @@ export class TerminalReader {
         })
     }
 
-    readRange(question: string): Promise<number> {
+    readRangeOrMatrixNumber(question: string): Promise<number> {
         return new Promise((resolve) => {
             let validateResult: number | null;
             this.rl.question(question, (answer) => {
                 const validator = new InputValidate();
-                validateResult = validator.validateAsRange(answer);
+                validateResult = validator.validateAsWholeNumber(answer);
                 if (validateResult == null) {
-                    resolve(this.readRange(question));
+                    resolve(this.readRangeOrMatrixNumber(question));
                 }
                 else {
                     resolve(validateResult);

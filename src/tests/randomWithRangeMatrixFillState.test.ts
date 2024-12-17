@@ -25,7 +25,7 @@ describe('randomWithRangeMatrixFillState next', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readRange: vi.fn().mockResolvedValue(100).mockResolvedValueOnce(1),
+            readRangeOrMatrixNumber: vi.fn().mockResolvedValue(100).mockResolvedValueOnce(1),
         } as unknown as TerminalReader;
 
         const randomWithRangeMatrixFill = new RandomWithRangeMatrixFill(mockMatrix, mockReader, mockContext);
@@ -33,7 +33,7 @@ describe('randomWithRangeMatrixFillState next', () => {
         vi.spyOn(mockCurrentState, "getCurrentMatrix").mockReturnValue("A");
         await randomWithRangeMatrixFill.next();
 
-        expect(mockReader.readRange).toHaveBeenCalledTimes(2);
+        expect(mockReader.readRangeOrMatrixNumber).toHaveBeenCalledTimes(2);
     })
 
     it('should set context for creating B matrix if the currentMatrix in initialState is "A"', async () => {
@@ -56,7 +56,7 @@ describe('randomWithRangeMatrixFillState next', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readRange: vi.fn().mockResolvedValue(100).mockResolvedValueOnce(1),
+            readRangeOrMatrixNumber: vi.fn().mockResolvedValue(100).mockResolvedValueOnce(1),
         } as unknown as TerminalReader;
 
         const randomWithRangeMatrixFill = new RandomWithRangeMatrixFill(mockMatrix, mockReader, mockContext);
@@ -87,7 +87,7 @@ describe('randomWithRangeMatrixFillState next', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readRange: vi.fn().mockResolvedValue(100).mockResolvedValueOnce(1),
+            readRangeOrMatrixNumber: vi.fn().mockResolvedValue(100).mockResolvedValueOnce(1),
         } as unknown as TerminalReader;
 
         const randomWithRangeMatrixFill = new RandomWithRangeMatrixFill(mockMatrix, mockReader, mockContext);
@@ -97,7 +97,7 @@ describe('randomWithRangeMatrixFillState next', () => {
         expect(mockContext.setCurrentState).toHaveBeenCalledWith(null);
     })
 
-    it('should should call reader.readRange with the proper text', async () => {
+    it('should should call reader.readRangeOrMatrixNumber with the proper text', async () => {
         const mockMatrix = {
             getMatrixData: vi.fn().mockReturnValue([
                 [0, 0],
@@ -117,14 +117,14 @@ describe('randomWithRangeMatrixFillState next', () => {
         } as unknown as Context;
 
         const mockReader = {
-            readRange: vi.fn().mockResolvedValue(100).mockResolvedValueOnce(1),
+            readRangeOrMatrixNumber: vi.fn().mockResolvedValue(100).mockResolvedValueOnce(1),
         } as unknown as TerminalReader;
 
         const randomWithRangeMatrixFill = new RandomWithRangeMatrixFill(mockMatrix, mockReader, mockContext);
 
         await randomWithRangeMatrixFill.next();
 
-        expect(mockReader.readRange).toHaveBeenCalledWith("Kérem adja meg a generálandó számok alsó határértékét: ");
-        expect(mockReader.readRange).toHaveBeenCalledWith("Kérem adja meg a generálandó számok felső határértékét: ");
+        expect(mockReader.readRangeOrMatrixNumber).toHaveBeenCalledWith("Kérem adja meg a generálandó számok alsó határértékét: ");
+        expect(mockReader.readRangeOrMatrixNumber).toHaveBeenCalledWith("Kérem adja meg a generálandó számok felső határértékét: ");
     })
 })

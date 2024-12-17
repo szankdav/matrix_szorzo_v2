@@ -21,7 +21,7 @@ export class ManualMatrixFillState implements State {
 
         for (let i = 0; i < generatedMatrix.length; i++) {
             for (let j = 0; j < generatedMatrix[i].length; j++) {
-                const answer = await this.reader.readNumber(`Kérem adja meg a(z) ${i + 1}. sor ${j + 1}, oszlopának számát:`);
+                const answer = await this.reader.readRangeOrMatrixNumber(`Kérem adja meg a(z) ${i + 1}. sor ${j + 1}, oszlopának számát:`);
                 generatedMatrix[i][j] = answer;
             }
         }

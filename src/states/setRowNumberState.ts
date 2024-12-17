@@ -24,13 +24,13 @@ export class SetRowNumberState implements State {
     async next(): Promise<void | null> {
         if (this.currentMatrix === "A") {
             console.log("'A' mátrix:")
-            const rowNumber: number = await this.reader.readNumber("Kérem írja be a mátrix sorainak számát: ");
+            const rowNumber: number = await this.reader.readRowOrColNumber("Kérem írja be a mátrix sorainak számát: ");
             this.matrix_A.setRow(rowNumber);
             this.context.setCurrentState(new SetColumnNumberState(this.matrix_A, this.reader, this.context));
         }
         else if (this.currentMatrix === "B") {
             console.log("'B' mátrix:")
-            let rowNumber: number = await this.reader.readNumber("Kérem írja be a mátrix sorainak számát: ");
+            let rowNumber: number = await this.reader.readRowOrColNumber("Kérem írja be a mátrix sorainak számát: ");
             if(rowNumber !== this.matrix_A.getMatrixColumn()){
                 console.log("Hiba! Két mátrix szorzásához az 'A' mátrix oszlopainak száma meg kell, hogy egyezzen a 'B' mátrix sorainak számával!");
                 await this.next();
