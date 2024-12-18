@@ -5,6 +5,7 @@ import { Context } from "../classes/context";
 import { ManualMatrixFillState } from "../states/manualMatrixFillState";
 import { SetRowNumberState } from "../states/setRowNumberState";
 import { State } from "../interfaces/state";
+import { MultiplyTheMatricesState } from "../states/multiplyTheMatricesState";
 
 
 describe('manualMatrixFillState next', () => {
@@ -98,17 +99,31 @@ describe('manualMatrixFillState next', () => {
 
 
     it('should set context for null the currentMatrix in initialState is "B"', async () => {
-        const mockMatrix = {
+        const mockMatrix_A = {
             getMatrixData: vi.fn().mockReturnValue([
                 [0, 0],
                 [0, 0],
             ]),
+            getMatrixRow: vi.fn().mockReturnValue(2),
+            getMatrixColumn: vi.fn(),
+            toString: vi.fn(),
+        } as unknown as Matrix;
+
+        const mockMatrix_B = {
+            getMatrixData: vi.fn().mockReturnValue([
+                [0, 0],
+                [0, 0],
+            ]),
+            getMatrixRow: vi.fn().mockReturnValue(2),
+            getMatrixColumn: vi.fn().mockReturnValue(2),
             toString: vi.fn(),
         } as unknown as Matrix;
 
         const mockCurrentState = {
             getCurrentMatrix: vi.fn().mockReturnValue("B"),
             setCurrentMatrix: vi.fn(),
+            getMatrixA: vi.fn().mockReturnValue(mockMatrix_A),
+            getMatrixB: vi.fn().mockReturnValue(mockMatrix_B),
         } as unknown as State as SetRowNumberState;
 
         const mockContext = {
@@ -120,10 +135,10 @@ describe('manualMatrixFillState next', () => {
             readRangeOrMatrixNumber: vi.fn().mockResolvedValue(1).mockResolvedValue(2).mockResolvedValue(3).mockResolvedValue(4),
         } as unknown as TerminalReader;
 
-        const manualMatrixFillState = new ManualMatrixFillState(mockMatrix, mockReader, mockContext);
+        const manualMatrixFillState = new ManualMatrixFillState(mockMatrix_A, mockReader, mockContext);
 
         await manualMatrixFillState.next();
 
-        expect(mockContext.setCurrentState).toHaveBeenCalledWith(null);
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith(expect.any(MultiplyTheMatricesState));
     })
 })

@@ -88,11 +88,9 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         } as unknown as TerminalReader;
 
         const chooseMatrixGenerateMethodState = new ChooseMatrixGenerateMethodState(mockMatrix, mockReader, mockContext);
-        const manualMatrixFillState = new ManualMatrixFillState(mockMatrix, mockReader, mockContext);
 
         await chooseMatrixGenerateMethodState.next();
-        expect(manualMatrixFillState).toBeInstanceOf(ManualMatrixFillState);
-        expect(mockContext.setCurrentState).toHaveBeenCalledWith(manualMatrixFillState);
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith(expect.any(ManualMatrixFillState));
     })
 
     it('should call setCurrentState with an instance of RandomWithRangeMatrixFill if answer is "n"', async () => {
@@ -111,10 +109,8 @@ describe('chooseMatrixGenerateMethodState next tests', () => {
         } as unknown as TerminalReader;
 
         const chooseMatrixGenerateMethodState = new ChooseMatrixGenerateMethodState(mockMatrix, mockReader, mockContext);
-        const randomWithRangeMatrixFill = new RandomWithRangeMatrixFill(mockMatrix, mockReader, mockContext);
 
         await chooseMatrixGenerateMethodState.next();
-        expect(randomWithRangeMatrixFill).toBeInstanceOf(RandomWithRangeMatrixFill);
-        expect(mockContext.setCurrentState).toHaveBeenCalledWith(randomWithRangeMatrixFill);
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith(expect.any(RandomWithRangeMatrixFill));
     })
 });

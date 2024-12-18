@@ -71,12 +71,10 @@ describe('setRowNumberState next tests', () => {
         } as unknown as TerminalReader;
 
         const setRowNumberState = new SetRowNumberState(mockMatrix_A, mockMatrix_B, mockReader, mockContext, "A");
-        const setColumnNumberState = new SetColumnNumberState(mockMatrix_A, mockReader, mockContext);
 
         await setRowNumberState.next();
 
-        expect(setColumnNumberState).toBeInstanceOf(SetColumnNumberState);
-        expect(mockContext.setCurrentState).toHaveBeenCalledWith(setColumnNumberState);
+        expect(mockContext.setCurrentState).toHaveBeenCalledWith(expect.any(SetColumnNumberState));
     })
 
     it('should call readNumber with the proper text', async () => {

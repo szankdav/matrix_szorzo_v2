@@ -2,6 +2,7 @@ import { Context } from "../classes/context";
 import { Matrix } from "../classes/matrix";
 import { TerminalReader } from "../classes/terminalReader";
 import { State } from "../interfaces/state";
+import { MultiplyTheMatricesState } from "./multiplyTheMatricesState";
 import { SetRowNumberState } from "./setRowNumberState";
 
 export class ManualMatrixFillState implements State {
@@ -31,10 +32,14 @@ export class ManualMatrixFillState implements State {
         const currentState: State = this.context.getInitialState();
         if ((currentState as SetRowNumberState).getCurrentMatrix() === "A") {
             (currentState as SetRowNumberState).setCurrentMatrix("B");
+            console.log("------------------State átállítva: 'B' mátrix sorszámának bekérése.------------------")
             this.context.setCurrentState(currentState);
         }
         else {
-            this.context.setCurrentState(null);
+            const matrix_A = (currentState as SetRowNumberState).getMatrixA();
+            const matrix_B = (currentState as SetRowNumberState).getMatrixB();
+            console.log("------------------State átállítva: A két mátrix szorzása.------------------")
+            this.context.setCurrentState(new MultiplyTheMatricesState(matrix_A, matrix_B, this.reader, this.context));
         }
     }
 }

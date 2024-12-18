@@ -21,7 +21,7 @@ export class MultiplyTheMatricesState implements State {
         this.multipliedMatrix.setColumn(matrix_B.getMatrixColumn());
     }
 
-    asyncTimeout = (ms: number) => {
+    private asyncTimeout = (ms: number) => {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
         })
