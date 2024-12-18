@@ -17,6 +17,7 @@ export class ManualMatrixFillState implements State {
 
     run(): void { }
     async next(): Promise<void | null> {
+        console.log("------------------Aktuális state: mátrix feltöltése manuálisan.------------------");
         let generatedMatrix: number[][] = this.matrix.getMatrixData();
 
         for (let i = 0; i < generatedMatrix.length; i++) {

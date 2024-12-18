@@ -18,8 +18,10 @@ export class SetColumnNumberState implements State {
     run(): void { }
 
     async next(): Promise<void | null> {
+        console.log("------------------Aktuális state: mátrix oszlopszámának bekérése.------------------");
         const colNumber: number = await this.reader.readRowOrColNumber("Kérem írja be a mátrix oszlopainak számát: ");
         this.matrix.setColumn(colNumber);
+        console.log("------------------State átállítva: Feltöltési mód kiválasztása.------------------")
         this.context.setCurrentState(new ChooseMatrixGenerateMethodState(this.matrix, this.reader, this.context));
     }
 } 

@@ -30,16 +30,22 @@ export class Matrix {
     }
 
     public toString() {
-        // for (let i = 0; i < this.data.length; i++) {
-        //     for (let j = 0; j < this.data[i].length; j++) {
-        //         process.stdout.write(`\t${j + 1}. oszlop: `);
-        //     }
-        //     process.stdout.write('\n');
-        //     if (i < this.data.length) {
-        //         console.log(`${i + 1}. sor: `);
-        //     }
-        // }
-        return this.data.map(row => row.join(" ")).join("\n");
+        for (let i = 0; i < this.data.length; i++) {
+            let nums: number [] = [];
+            for (let j = 0; j < this.data[i].length; j++) {
+                process.stdout.write(`\t${j + 1}. oszlop: `);
+                nums.push(this.data[i][j]);
+            }
+            process.stdout.write('\n');
+            if (i < this.data.length) {
+                process.stdout.write(`${i + 1}. sor: `);
+                for (let k = 0; k < nums.length; k++) {
+                    process.stdout.write(`${nums[k]}\t\t`);
+                }
+                process.stdout.write("\n");
+            }
+        }
+        //return this.data.map(row => row.join(" ")).join("\n");
     }
 
     setData(matrix: number[][]) {

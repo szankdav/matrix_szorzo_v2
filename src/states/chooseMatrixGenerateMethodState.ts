@@ -20,17 +20,18 @@ export class ChooseMatrixGenerateMethodState implements State {
 
     run(): void { }
     async next(): Promise<void | null> {
+        console.log("------------------Aktuális state: Feltöltési mód kiválasztása.------------------");
         const answer = await this.reader.readLetter("Szeretné manuálisan feltölteni a mátrixot számokkal? (Amennyiben nem, egy megadott számtartományon belüli véletlenszerű számokkal lesz feltöltve.) ['i'/'n']: ");
         if (answer === "N") {
             const generatedMatrix = Array.from({ length: this.matrix.getMatrixRow() }, () => new Array(this.matrix.getMatrixColumn()).fill(0));
             this.matrix.setData(generatedMatrix);
-            console.log("State átállítva: mátrix feltöltése véletlenszerű számokkal.");
+            console.log("------------------State átállítva: mátrix feltöltése véletlenszerű számokkal.------------------");
             this.context.setCurrentState(new RandomWithRangeMatrixFill(this.matrix, this.reader, this.context));
         }
         else if(answer === "I") {
             const generatedMatrix = Array.from({ length: this.matrix.getMatrixRow() }, () => new Array(this.matrix.getMatrixColumn()).fill(0));
             this.matrix.setData(generatedMatrix);
-            console.log("State átállítva: mátrix feltöltése manuálisan.");
+            console.log("------------------State átállítva: mátrix feltöltése manuálisan.------------------");
             this.context.setCurrentState(new ManualMatrixFillState(this.matrix, this.reader, this.context));
         }
     }

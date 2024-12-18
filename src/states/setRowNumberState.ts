@@ -23,20 +23,26 @@ export class SetRowNumberState implements State {
 
     async next(): Promise<void | null> {
         if (this.currentMatrix === "A") {
+            console.log("------------------Aktuális state: 'A' mátrix sorszámának bekérése.------------------");
             console.log("'A' mátrix:")
             const rowNumber: number = await this.reader.readRowOrColNumber("Kérem írja be a mátrix sorainak számát: ");
             this.matrix_A.setRow(rowNumber);
+            console.log("------------------State átállítva: 'A' mátrix oszlopszámának bekérése.------------------")
             this.context.setCurrentState(new SetColumnNumberState(this.matrix_A, this.reader, this.context));
         }
         else if (this.currentMatrix === "B") {
+            console.log("------------------Aktuális state: 'B' mátrix sorszámának bekérése.------------------");
             console.log("'B' mátrix:")
             let rowNumber: number = await this.reader.readRowOrColNumber("Kérem írja be a mátrix sorainak számát: ");
-            if(rowNumber !== this.matrix_A.getMatrixColumn()){
+            if (rowNumber !== this.matrix_A.getMatrixColumn()) {
                 console.log("Hiba! Két mátrix szorzásához az 'A' mátrix oszlopainak száma meg kell, hogy egyezzen a 'B' mátrix sorainak számával!");
                 await this.next();
             }
-            this.matrix_B.setRow(rowNumber);
-            this.context.setCurrentState(new SetColumnNumberState(this.matrix_B, this.reader, this.context));
+            else {
+                this.matrix_B.setRow(rowNumber);
+                console.log("------------------State átállítva: 'B' mátrix oszlopszámának bekérése.------------------");
+                this.context.setCurrentState(new SetColumnNumberState(this.matrix_B, this.reader, this.context));
+            }
         }
     }
 
@@ -46,5 +52,13 @@ export class SetRowNumberState implements State {
 
     public getCurrentMatrix() {
         return this.currentMatrix;
+    }
+
+    public getMatrixA() {
+        return this.matrix_A;
+    }
+
+    public getMatrixB() {
+        return this.matrix_B;
     }
 }

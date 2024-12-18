@@ -19,16 +19,6 @@ context.setCurrentState(initialState);
         await context.next();
     } while (context.getCurrentState() !== null)
     
-    console.log("------------------Létrehozott mátrixok------------------\n")
-    console.log("'A' mátrix:\n");
-    console.log(matrix_A.toString());
-    console.log("\n");
-    console.log("'B' mátrix:\n");
-    console.log(matrix_B.toString());
-
-
-
-    console.log("\n");
     console.log("A program kilép!");
     process.exit(0);
 })();
