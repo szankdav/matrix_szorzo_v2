@@ -36,6 +36,7 @@ export class MultiplyTheMatricesState implements State {
         console.log(this.matrix_A.toString());
         console.log("'B' mátrix");
         console.log(this.matrix_B.toString());
+        console.log("------------------A két mátrix szorzása.------------------");
         let multipliedMatrixRow: number = this.multipliedMatrix.getMatrixRow();
         let multipliedMatrixColumn: number = this.multipliedMatrix.getMatrixColumn();
         let multipliedMatrixData: number[][] = this.multipliedMatrix.getMatrixData();
