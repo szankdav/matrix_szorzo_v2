@@ -4,24 +4,15 @@ import { Context } from "../classes/context";
 import { State } from "../interfaces/state";
 
 describe('context tests', () => {
-    it('should set currentState', () => {
+    it('should get the currentState from context when getCurrentState called', () => {
         const mockCurrentState = {
             run: vi.fn(),
             next: vi.fn(),
         } as unknown as State;
 
-        const mockInitialState = {
-            run: vi.fn(),
-            next: vi.fn(),
-        } as unknown as State;
-
         const context = new Context();
-        Object.defineProperty(mockInitialState, "currentState", {
+        Object.defineProperty(mockCurrentState, "currentState", {
             value: mockCurrentState,
-        })
-
-        Object.defineProperty(mockInitialState, "initialState", {
-            value: mockInitialState,
         })
 
         expect(context.getCurrentState()).toBe(null);
@@ -29,24 +20,15 @@ describe('context tests', () => {
         expect(context.getCurrentState()).toBe(mockCurrentState);
     })
 
-    it('should get currentState', () => {
+    it('should get the currentState from context when getCurrentState called', () => {
         const mockCurrentState = {
             run: vi.fn(),
             next: vi.fn(),
         } as unknown as State;
 
-        const mockInitialState = {
-            run: vi.fn(),
-            next: vi.fn(),
-        } as unknown as State;
-
         const context = new Context();
-        Object.defineProperty(mockInitialState, "currentState", {
+        Object.defineProperty(mockCurrentState, "currentState", {
             value: mockCurrentState,
-        })
-
-        Object.defineProperty(mockInitialState, "initialState", {
-            value: mockInitialState,
         })
 
         let currentState: State | null = context.getCurrentState();
@@ -56,21 +38,13 @@ describe('context tests', () => {
         expect(currentState).toBe(mockCurrentState);
     })
 
-    it('should set initialState', () => {
-        const mockCurrentState = {
-            run: vi.fn(),
-            next: vi.fn(),
-        } as unknown as State;
-
+    it('should set the initialState from context when setInitialState called', () => {
         const mockInitialState = {
             run: vi.fn(),
             next: vi.fn(),
         } as unknown as State;
 
         const context = new Context();
-        Object.defineProperty(mockInitialState, "currentState", {
-            value: mockCurrentState,
-        })
 
         Object.defineProperty(mockInitialState, "initialState", {
             value: mockInitialState,
@@ -81,21 +55,13 @@ describe('context tests', () => {
         expect(context.getInitialState()).toBe(mockInitialState);
     })
 
-    it('should get initialState', () => {
-        const mockCurrentState = {
-            run: vi.fn(),
-            next: vi.fn(),
-        } as unknown as State;
-
+    it('should get the initialState from context when getInitialState called', () => {
         const mockInitialState = {
             run: vi.fn(),
             next: vi.fn(),
         } as unknown as State;
 
         const context = new Context();
-        Object.defineProperty(mockInitialState, "currentState", {
-            value: mockCurrentState,
-        })
 
         Object.defineProperty(mockInitialState, "initialState", {
             value: mockInitialState,
@@ -108,28 +74,20 @@ describe('context tests', () => {
         expect(initialState).toBe(mockInitialState);
     })
 
-    // it('should call currentState.next()', async () => {
-    //     const mockCurrentState = {
-    //         run: vi.fn(),
-    //         next: vi.fn().mockResolvedValue(null),
-    //     } as unknown as State;
+    it('should resolve context.next() with currentState.next() ', async () => {
+        const mockCurrentState = {
+            run: vi.fn(),
+            next: vi.fn().mockResolvedValue(null),
+        } as unknown as State;
 
-    //     const mockInitialState = {
-    //         run: vi.fn(),
-    //         next: vi.fn(),
-    //     } as unknown as State;
+        const context = new Context();
+        vi.spyOn(context, "next").mockResolvedValue(await mockCurrentState.next());
 
-    //     const context = new Context();
-    //     vi.spyOn(context, "next");
-    //     Object.defineProperty(mockInitialState, "currentState", {
-    //         value: mockCurrentState,
-    //     })
+        Object.defineProperty(mockCurrentState, "currentState", {
+            value: mockCurrentState,
+        })
 
-    //     Object.defineProperty(mockInitialState, "initialState", {
-    //         value: mockInitialState,
-    //     })
-
-    //     await context.next();
-    //     expect(mockCurrentState.next).toHaveBeenCalled();
-    // })
+        await context.next();
+        expect(context.next).toHaveResolvedWith(null);
+    })
 })
