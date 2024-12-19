@@ -1,7 +1,6 @@
 import * as readline from 'readline';
 import * as process from 'process';
 import { InputValidate } from './inputValidate';
-import { resolve } from 'path';
 
 export class TerminalReader {
     rl = readline.createInterface({
