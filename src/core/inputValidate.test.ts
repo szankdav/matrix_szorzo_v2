@@ -2,23 +2,20 @@ import { describe, expect, it } from "vitest";
 import { validateAsLetter, validateAsNaturalNumber, validateAsWholeNumber } from "./inputValidate";
 
 
-describe('NumberInputValidate tests', () => {
-    it('should return the input as number if the given input is a valid number', async () => {
+describe('validateAsNaturalNumber tests', () => {
+    it('should return true if the given input is a valid number', async () => {
         const res = validateAsNaturalNumber('5')
-        expect(res).equal(5)
-        expect(res).toBeTypeOf("number")
+        expect(res).equal(true)
     })
 
-    it('should return null if the given input is not a number', async () => {
+    it('should return false if the given input is not a number', async () => {
         const res = validateAsNaturalNumber("d")
-        expect(res).equal(null)
-        expect(res).toBeNull
+        expect(res).equal(false)
     })
 
-    it('should call self again if the given input is a negative number', async () => {
+    it('should return false if the given input is a negative number', async () => {
         const res = validateAsNaturalNumber("-5")
-        expect(res).equal(null)
-        expect(res).toBeNull
+        expect(res).equal(false)
     })
 })
 

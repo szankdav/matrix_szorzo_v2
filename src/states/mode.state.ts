@@ -3,7 +3,7 @@ import { validateAsLetter } from "../core/inputValidate";
 import { TerminalReader } from "../core/terminalReader";
 import { State } from "../interfaces/state";
 import { AutomateMatrixAState } from "./automateMatrixAState.state";
-import { UserMatrixADimensionsState } from "./userMatrixADimensionsState.state";
+import { UserMatrixADimensionsInputState } from "./userMatrixADimensionsInputState.state";
 
 export const MODE_MSG = "Kérem válasszon az alábbi lehetőségek közül:";
 export const RANDOM_MSG = "'A' (automatikus): a program automatikusan, véletlenszerű dimenziókkal és adatokkal létrehoz két mátrixot, majd elvégzi a szorzást. Minden lépés megjelenítésre kerül a konzolon.";
@@ -29,7 +29,7 @@ export class ModeState implements State{
             choosenMode = await this.terminalReader.askQuestion("Válaszott mód: ['A'/'M'/'K']: ");
         }
         if(choosenMode.toUpperCase() === "M"){
-            this.context.setCurrentState(new UserMatrixADimensionsState(this.context, this.terminalReader));
+            this.context.setCurrentState(new UserMatrixADimensionsInputState(this.context, this.terminalReader));
         }
         else if(choosenMode.toUpperCase() === "A"){
             this.context.setCurrentState(new AutomateMatrixAState(this.context, this.terminalReader));
