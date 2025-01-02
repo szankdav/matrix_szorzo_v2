@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { Matrix } from "../classes/matrix";
+import { Matrix } from "../core/matrix";
 
 describe('matrix tests', () => {
     it('should return with matrix data when getMatrixData is called', () => {

@@ -1,21 +1,14 @@
-import { Context } from "./classes/context";
-import { Matrix } from "./classes/matrix";
-import { TerminalReader } from "./classes/terminalReader";
-import { SetRowNumberState } from "./states/setRowNumberState";
+import { Context } from "./core/context";
+import { TerminalReader } from "./core/terminalReader";
+import { StartState } from "./states/start.state";
 
-const matrix_A = new Matrix()
-const matrix_B = new Matrix();
 const context = new Context();
 const reader = new TerminalReader();
-const initialState = new SetRowNumberState(matrix_A, matrix_B, reader, context, "A");
-context.setInitialState(initialState);
-context.setCurrentState(initialState);
+const startState = new StartState(context, reader);
+context.setCurrentState(startState);
 
 (async function main() {
-    console.log("------------------Mátrixok szorzásának bemutatása------------------\n")
-
     do {
-        context.run();
         await context.next();
     } while (context.getCurrentState() !== null)
     

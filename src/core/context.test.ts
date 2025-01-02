@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 import { expect, vi } from "vitest";
-import { Context } from "../classes/context";
+import { Context } from "../core/context";
 import { State } from "../interfaces/state";
 
 describe('context tests', () => {
@@ -36,42 +36,6 @@ describe('context tests', () => {
         context.setCurrentState(mockCurrentState);
         currentState = context.getCurrentState();
         expect(currentState).toBe(mockCurrentState);
-    })
-
-    it('should set the initialState from context when setInitialState called', () => {
-        const mockInitialState = {
-            run: vi.fn(),
-            next: vi.fn(),
-        } as unknown as State;
-
-        const context = new Context();
-
-        Object.defineProperty(mockInitialState, "initialState", {
-            value: mockInitialState,
-        })
-
-        expect(context.getInitialState()).toBe(null);
-        context.setInitialState(mockInitialState);
-        expect(context.getInitialState()).toBe(mockInitialState);
-    })
-
-    it('should get the initialState from context when getInitialState called', () => {
-        const mockInitialState = {
-            run: vi.fn(),
-            next: vi.fn(),
-        } as unknown as State;
-
-        const context = new Context();
-
-        Object.defineProperty(mockInitialState, "initialState", {
-            value: mockInitialState,
-        })
-
-        let initialState: State | null = context.getInitialState();
-        expect(initialState).toBe(null);
-        context.setInitialState(mockInitialState);
-        initialState = context.getInitialState();
-        expect(initialState).toBe(mockInitialState);
     })
 
     it('should resolve context.next() with currentState.next() ', async () => {

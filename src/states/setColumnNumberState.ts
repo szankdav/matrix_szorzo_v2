@@ -1,27 +1,27 @@
-import { Matrix } from "../classes/matrix"
-import { TerminalReader } from "../classes/terminalReader";
-import { State } from "../interfaces/state";
-import { Context } from "../classes/context";
-import { ChooseMatrixGenerateMethodState } from "./chooseMatrixGenerateMethodState";
+// import { Matrix } from "../core/matrix"
+// import { TerminalReader } from "../core/terminalReader";
+// import { State } from "../interfaces/state";
+// import { Context } from "../core/context";
+// import { ChooseMatrixGenerateMethodState } from "./chooseMatrixGenerateMethodState";
 
-export class SetColumnNumberState implements State {
-    private matrix: Matrix;
-    private reader: TerminalReader;
-    private context: Context;
+// export class SetColumnNumberState implements State {
+//     private matrix: Matrix;
+//     private reader: TerminalReader;
+//     private context: Context;
 
-    constructor(matrix: Matrix, reader: TerminalReader, context: Context) {
-        this.matrix = matrix;
-        this.reader = reader;
-        this.context = context;
-    }
+//     constructor(matrix: Matrix, reader: TerminalReader, context: Context) {
+//         this.matrix = matrix;
+//         this.reader = reader;
+//         this.context = context;
+//     }
 
-    run(): void { }
+//     run(): void { }
 
-    async next(): Promise<void | null> {
-        console.log("------------------Aktuális state: mátrix oszlopszámának bekérése.------------------");
-        const colNumber: number = await this.reader.readRowOrColNumber("Kérem írja be a mátrix oszlopainak számát: ");
-        this.matrix.setColumn(colNumber);
-        console.log("------------------State átállítva: Feltöltési mód kiválasztása.------------------")
-        this.context.setCurrentState(new ChooseMatrixGenerateMethodState(this.matrix, this.reader, this.context));
-    }
-} 
+//     async next(): Promise<void | null> {
+//         console.log("------------------Aktuális state: mátrix oszlopszámának bekérése.------------------");
+//         const colNumber: number = await this.reader.readRowOrColNumber("Kérem írja be a mátrix oszlopainak számát: ");
+//         this.matrix.setColumn(colNumber);
+//         console.log("------------------State átállítva: Feltöltési mód kiválasztása.------------------")
+//         this.context.setCurrentState(new ChooseMatrixGenerateMethodState(this.matrix, this.reader, this.context));
+//     }
+// } 

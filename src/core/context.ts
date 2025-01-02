@@ -1,16 +1,15 @@
 import { State } from "../interfaces/state";
+import { Matrix } from "./matrix";
 
 export class Context{
     private currentState: State | null;
-    private initialState: State | null;
+    private matrix_A: Matrix;
+    private matrix_B: Matrix;
 
     constructor(){
         this.currentState = null;
-        this.initialState = null;
-    }
-
-    run():void{
-        this.currentState?.run();
+        this.matrix_A = new Matrix();
+        this.matrix_B = new Matrix();
     }
 
     async next():Promise<void|null>{
@@ -21,15 +20,8 @@ export class Context{
         this.currentState = state;
     }
 
+    //Nem fog kelleni
     public getCurrentState(){
         return this.currentState;
-    }
-
-    public setInitialState(state: State | null){
-        this.initialState = state;
-    }
-
-    public getInitialState(): State{
-        return this.initialState!;
     }
 }

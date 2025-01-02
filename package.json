@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest",
-    "start": "tsc && node dist/index.js"
+    "test": "npx vitest",
+    "start": "npx vite-node src/index.ts"
   },
   "author": "",
   "license": "ISC",
