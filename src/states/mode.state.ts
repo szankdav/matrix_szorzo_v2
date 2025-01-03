@@ -2,13 +2,14 @@ import { Context } from "../core/context";
 import { validateAsLetter } from "../core/inputValidate";
 import { TerminalReader } from "../core/terminalReader";
 import { State } from "../interfaces/state";
-import { AutomateMatrixAState } from "./automateMatrixAState.state";
-import { UserMatrixADimensionsInputState } from "./userMatrixADimensionsInputState.state";
+import { AutomateMatrixAState } from "./automateMatrixA.state";
+import { UserMatrixADimensionsInputState } from "./userMatrixADimensionsInput.state";
 
 export const MODE_MSG = "Kérem válasszon az alábbi lehetőségek közül:";
 export const RANDOM_MSG = "'A' (automatikus): a program automatikusan, véletlenszerű dimenziókkal és adatokkal létrehoz két mátrixot, majd elvégzi a szorzást. Minden lépés megjelenítésre kerül a konzolon.";
 export const USER_MSG = "'M' (manuális): a program a felhasználótól kéri be az adatokat, majd elvégzi a szorzást. Minden lépés megjelenítésre kerül a konzolon.";
-export const EXIT_MSG = "'K' (kilépés): a program kilép."
+export const EXIT_MSG = "'K' (kilépés): a program kilép.";
+export const MODE_CHOOSE_MSG = "Válaszott mód: ['A'/'M'/'K']: ";
 
 export class ModeState implements State{
     private context: Context;
@@ -24,9 +25,9 @@ export class ModeState implements State{
         this.terminalReader.displayText(RANDOM_MSG);
         this.terminalReader.displayText(USER_MSG);
         this.terminalReader.displayText(EXIT_MSG);
-        let choosenMode = await this.terminalReader.askQuestion("Válaszott mód: ['A'/'M'/'K']: ");
+        let choosenMode = await this.terminalReader.askQuestion(MODE_CHOOSE_MSG);
         while(!validateAsLetter(choosenMode)){
-            choosenMode = await this.terminalReader.askQuestion("Válaszott mód: ['A'/'M'/'K']: ");
+            choosenMode = await this.terminalReader.askQuestion(MODE_CHOOSE_MSG);
         }
         if(choosenMode.toUpperCase() === "M"){
             this.context.setCurrentState(new UserMatrixADimensionsInputState(this.context, this.terminalReader));

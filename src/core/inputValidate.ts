@@ -27,15 +27,15 @@ export function validateAsLetter(input: string): boolean {
     }
 }
 
-export function validateAsWholeNumber(input: string): number | null {
+export function validateAsWholeNumber(input: string): boolean {
     const num = Number(input);
     if (input.split(" ").length > 1) {
         console.log("Csak egy számot adhat meg!");
-        return null;
+        return false;
     } else if (isNaN(num)) {
         console.log("Csak számokat adhat meg!");
-        return null;
+        return false;
     } else {
-        return num;
+        return true;
     }
 }

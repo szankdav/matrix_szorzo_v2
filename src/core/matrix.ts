@@ -23,6 +23,7 @@ export class Matrix {
 
     public setRow(row: number) {
         this.row = row;
+        this.data = Array(row).fill(null).map(() => []);
     }
 
     public setColumn(column: number) {

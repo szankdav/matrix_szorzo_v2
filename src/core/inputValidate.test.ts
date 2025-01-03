@@ -19,7 +19,7 @@ describe('validateAsNaturalNumber tests', () => {
     })
 })
 
-describe('LetterInputValidate tests', () => {
+describe('validateAsLetter tests', () => {
     it('should return true if the given input is "a"', async () => {
         const res = validateAsLetter("a");
         expect(res).toBe(true);
@@ -56,22 +56,24 @@ describe('LetterInputValidate tests', () => {
     })
 })
 
-describe('RangeInpuValidate tests', () => {
-    it('should return the input as number if the given input is a valid number', async () => {
+describe('validateAsWholeNumber tests', () => {
+    it('should return true if the given input is a valid number', async () => {
         const res = validateAsWholeNumber("5")
-        expect(res).equal(5)
-        expect(res).toBeTypeOf("number")
+        expect(res).equal(true)
     })
 
-    it('should return null if the given input is not a number', async () => {
+    it('should return false if the given input is not a number', async () => {
         const res = validateAsWholeNumber("d")
-        expect(res).equal(null)
-        expect(res).toBeNull
+        expect(res).equal(false)
     })
 
-    it('should return null if the given input is not a number', async () => {
+    it('should return false if the given input is not a number', async () => {
         const res = validateAsWholeNumber("5d")
-        expect(res).equal(null)
-        expect(res).toBeNull
+        expect(res).equal(false)
+    })
+
+    it('should return false if the given input is not one number', async () => {
+        const res = validateAsWholeNumber("5 4")
+        expect(res).equal(false)
     })
 })
