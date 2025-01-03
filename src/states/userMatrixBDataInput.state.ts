@@ -2,7 +2,7 @@ import { Context } from "../core/context";
 import { validateAsWholeNumber } from "../core/inputValidate";
 import { TerminalReader } from "../core/terminalReader";
 import { State } from "../interfaces/state";
-import { MultiplyTheMatricesState } from "./multiplyTheMatricesState";
+import { MultiplyTheMatricesState } from "./multiplyTheMatrices.state";
 
 export class UserMatrixBDataInputState implements State{
     private context: Context;

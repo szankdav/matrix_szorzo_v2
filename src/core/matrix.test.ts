@@ -38,6 +38,15 @@ describe('matrix tests', () => {
         expect(result).toBe(3);
     })
 
+    it('should populate the matrix with the given rows when setRow is called', () => {
+        const matrix = new Matrix();
+        
+        matrix.setRow(3);
+        const result = matrix.getMatrixData()
+
+        expect(result).toStrictEqual([[],[],[]]);
+    })
+
     it('should set matrix column when setColumn is called', () => {
         const matrix = new Matrix();
         
