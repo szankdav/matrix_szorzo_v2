@@ -27,6 +27,19 @@ export function validateAsLetter(input: string): boolean {
     }
 }
 
+export function validateAsIOrNLetter(input: string): boolean {
+    const character = input.toUpperCase();
+    if (input.split(" ").length > 1) {
+        console.log("Kérem csak 'I' vagy 'N' betűvel válaszoljon!");
+        return false;
+    } else if (!(character === "I" || character === "N")) {
+        console.log("Kérem csak 'I' vagy 'N' betűvel válaszoljon!");
+        return false;
+    } else {
+        return true;
+    }
+}
+
 export function validateAsWholeNumber(input: string): boolean {
     const num = Number(input);
     if (input.split(" ").length > 1) {

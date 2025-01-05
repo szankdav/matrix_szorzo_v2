@@ -16,6 +16,7 @@ describe('UserMatrixBDimensionsInputState tests', () => {
         const matrixBMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -45,6 +46,7 @@ describe('UserMatrixBDimensionsInputState tests', () => {
         const matrixBMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -74,6 +76,7 @@ describe('UserMatrixBDimensionsInputState tests', () => {
         const matrixBMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -105,6 +108,7 @@ describe('UserMatrixBDimensionsInputState tests', () => {
         const matrixBMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -133,6 +137,7 @@ describe('UserMatrixBDimensionsInputState tests', () => {
         const matrixBMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -160,6 +165,7 @@ describe('UserMatrixBDimensionsInputState tests', () => {
         const matrixBMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),

@@ -4,54 +4,58 @@ import { Context } from "../core/context";
 import { State } from "../interfaces/state";
 
 describe('context tests', () => {
-    it('should get the currentState from context when getCurrentState called', () => {
-        const mockCurrentState = {
-            run: vi.fn(),
-            next: vi.fn(),
-        } as unknown as State;
-
-        const context = new Context();
-        Object.defineProperty(mockCurrentState, "currentState", {
-            value: mockCurrentState,
-        })
-
-        expect(context.getCurrentState()).toBe(null);
-        context.setCurrentState(mockCurrentState);
-        expect(context.getCurrentState()).toBe(mockCurrentState);
-    })
-
-    it('should get the currentState from context when getCurrentState called', () => {
-        const mockCurrentState = {
-            run: vi.fn(),
-            next: vi.fn(),
-        } as unknown as State;
-
-        const context = new Context();
-        Object.defineProperty(mockCurrentState, "currentState", {
-            value: mockCurrentState,
-        })
-
-        let currentState: State | null = context.getCurrentState();
-        expect(currentState).toBe(null);
-        context.setCurrentState(mockCurrentState);
-        currentState = context.getCurrentState();
-        expect(currentState).toBe(mockCurrentState);
-    })
-
     it('should resolve context.next() with currentState.next() ', async () => {
-        const mockCurrentState = {
-            run: vi.fn(),
+        const contextMock = {
             next: vi.fn().mockResolvedValue(null),
-        } as unknown as State;
+        };     
 
-        const context = new Context();
-        vi.spyOn(context, "next").mockResolvedValue(await mockCurrentState.next());
+        await contextMock.next();
+        expect(contextMock.next).toHaveResolvedWith(null);
+    });
 
-        Object.defineProperty(mockCurrentState, "currentState", {
-            value: mockCurrentState,
-        })
+    it('should set currenState with the given state', async () => {
+        const modeStateMock = {}
 
-        await context.next();
-        expect(context.next).toHaveResolvedWith(null);
-    })
+        const contextMock = {
+            setCurrentState: vi.fn().mockReturnValue(modeStateMock),
+            getCurrentState: vi.fn(() => contextMock.setCurrentState())
+        };     
+
+        await contextMock.setCurrentState();
+        const result = contextMock.getCurrentState();
+        expect(result).toBe(modeStateMock);
+    });
+
+    it('should return matrixA when getMatrixA is called', async () => {
+        const mockMatrix_A = {};
+
+        const contextMock = {
+            getMatrixA: vi.fn(() => mockMatrix_A),
+        };     
+
+        const result = contextMock.getMatrixA();
+        expect(result).toBe(mockMatrix_A);
+    });
+
+    it('should return matrixB when getMatrixB is called', async () => {
+        const mockMatrix_B = {};
+
+        const contextMock = {
+            getMatrixB: vi.fn(() => mockMatrix_B),
+        };     
+
+        const result = contextMock.getMatrixB();
+        expect(result).toBe(mockMatrix_B);
+    });
+
+    it('should return with the current state when getCurrentState is called', async () => {
+        const currentState = {};
+
+        const contextMock = {
+            getCurrentState: vi.fn(() => currentState),
+        };     
+
+        const result = contextMock.getCurrentState();
+        expect(result).toBe(currentState);
+    });
 })

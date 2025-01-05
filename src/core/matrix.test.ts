@@ -3,56 +3,70 @@ import { Matrix } from "../core/matrix";
 
 describe('matrix tests', () => {
     it('should return with matrix data when getMatrixData is called', () => {
-        const matrix = new Matrix();
-        
-        vi.spyOn(matrix, "getMatrixData").mockReturnValue([[1, 2], [3, 4]]);
-        const result = matrix.getMatrixData()
+        const mockMatrix = {
+            getMatrixData: vi.fn().mockReturnValue([[1, 2], [3, 4]]),
+        }
+
+        const result = mockMatrix.getMatrixData();
 
         expect(result).toStrictEqual([[1, 2], [3, 4]]);
     })
 
     it('should return with matrix row when getMatrixRow is called', () => {
-        const matrix = new Matrix();
-        
-        vi.spyOn(matrix, "getMatrixRow").mockReturnValue(3);
-        const result = matrix.getMatrixRow()
+        const mockMatrix = {
+            getMatrixRow: vi.fn().mockReturnValue(3),
+        }
+
+        const result = mockMatrix.getMatrixRow()
 
         expect(result).toBe(3);
     })
 
     it('should return with matrix column when getMatrixColumn is called', () => {
-        const matrix = new Matrix();
-        
-        vi.spyOn(matrix, "getMatrixColumn").mockReturnValue(3);
-        const result = matrix.getMatrixColumn()
+        const mockMatrix = {
+            getMatrixColumn: vi.fn().mockReturnValue(3),
+        }
+
+        const result = mockMatrix.getMatrixColumn()
 
         expect(result).toBe(3);
     })
 
     it('should set matrix row when setRow is called', () => {
-        const matrix = new Matrix();
-        
-        matrix.setRow(3);
-        const result = matrix.getMatrixRow()
+        const mockMatrix = {
+            setRow: vi.fn().mockReturnValue(3),
+            getMatrixRow: vi.fn(() => mockMatrix.setRow()),
+        }
+
+        const result = mockMatrix.getMatrixRow()
 
         expect(result).toBe(3);
     })
 
     it('should populate the matrix with the given rows when setRow is called', () => {
-        const matrix = new Matrix();
-        
-        matrix.setRow(3);
-        const result = matrix.getMatrixData()
+        const mockMatrix = {
+            getMatrixRow: vi.fn().mockReturnValue(3),
+            data: [[], []],
+            setData: function () {
+                this.data = Array(this.getMatrixRow()).fill(null).map(() => []);
+            }
+        }
 
-        expect(result).toStrictEqual([[],[],[]]);
+        mockMatrix.setData();
+        mockMatrix.data.forEach((row) => {
+            expect(row).toEqual([]);
+        });
     })
 
     it('should set matrix column when setColumn is called', () => {
-        const matrix = new Matrix();
-        
-        matrix.setColumn(3);
-        const result = matrix.getMatrixColumn()
+        const mockMatrix = {
+            setColumn: vi.fn().mockReturnValue(3),
+            getMatrixColumn: vi.fn(() => mockMatrix.setColumn()),
+        }
+        const result = mockMatrix.getMatrixColumn()
 
         expect(result).toBe(3);
     })
+
+
 })

@@ -23,7 +23,6 @@ export class UserMatrixADataInputState implements State{
                 this.context.getMatrixA().getMatrixData()[i].push(parseInt(numberToMatrix));
             }            
         }
-        console.log(this.context.getMatrixA())
         this.context.getMatrixA().toString();
         this.context.setCurrentState(new UserMatrixBDimensionsInputState(this.context, this.terminalReader));    
     }  

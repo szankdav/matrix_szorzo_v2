@@ -24,6 +24,7 @@ export class UserMatrixADimensionsInputState implements State {
             matrixRow = await this.terminalReader.askQuestion(ROW_QSTN);
         }
         this.context.getMatrixA().setRow(parseInt(matrixRow));
+        this.context.getMatrixA().setData();
         this.terminalReader.displayText(`Az első dimenzió mérete, azaz a sorok száma: ${matrixRow}`);
 
         let matrixCol = await this.terminalReader.askQuestion(COL_QSTN);

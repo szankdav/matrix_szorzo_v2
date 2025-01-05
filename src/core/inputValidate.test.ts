@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { validateAsLetter, validateAsNaturalNumber, validateAsWholeNumber } from "./inputValidate";
+import { validateAsIOrNLetter, validateAsLetter, validateAsNaturalNumber, validateAsWholeNumber } from "./inputValidate";
 
 
 describe('validateAsNaturalNumber tests', () => {
@@ -52,6 +52,33 @@ describe('validateAsLetter tests', () => {
 
     it('should return false if the given input is not in "a", "m", "k", or "A", "M", "K"', async () => {
         const res = validateAsLetter("d");
+        expect(res).toBe(false);
+    })
+})
+
+describe('validateAsIOrNLetter tests', () => {
+    it('should return true if the given input is "i"', async () => {
+        const res = validateAsIOrNLetter("i");
+        expect(res).toBe(true);
+    })
+
+    it('should return true if the given input is "I"', async () => {
+        const res = validateAsIOrNLetter("I");
+        expect(res).toBe(true);
+    })
+
+    it('should return true if the given input is "n"', async () => {
+        const res = validateAsIOrNLetter("n");
+        expect(res).toBe(true);
+    })
+
+    it('should return true if the given input is "N"', async () => {
+        const res = validateAsIOrNLetter("N");
+        expect(res).toBe(true);
+    })
+
+    it('should return false if the given input is not in "i", n", "I", or "N"', async () => {
+        const res = validateAsIOrNLetter("d");
         expect(res).toBe(false);
     })
 })

@@ -4,7 +4,7 @@ import { Context } from '../core/context';
 import { TerminalReader } from '../core/terminalReader';
 import { UserMatrixADataInputState } from './userMatrixADataInput.state';
 
-describe('next tests', () => {
+describe('UserMatrixADimensionsInputState tests', () => {
     it("should call askQuestion again if answer is not a valid number", async () => {
         const terminalReaderMock = {
             askQuestion: vi.fn(),
@@ -13,6 +13,7 @@ describe('next tests', () => {
         const matrixAMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -38,6 +39,7 @@ describe('next tests', () => {
         const matrixAMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -63,6 +65,7 @@ describe('next tests', () => {
         const matrixAMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -87,6 +90,7 @@ describe('next tests', () => {
         const matrixAMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),
@@ -110,6 +114,7 @@ describe('next tests', () => {
         const matrixAMock = {
             setRow: vi.fn(),
             setColumn: vi.fn(),
+            setData: vi.fn(),
         };
         const contextMock = {
             getMatrixA: vi.fn(() => matrixAMock),

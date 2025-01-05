@@ -16,7 +16,6 @@ export class UserMatrixBDataInputState implements State{
     async next(): Promise<void | null> {
         for (let i = 0; i < this.context.getMatrixB().getMatrixRow(); i++) {
             for (let j = 0; j < this.context.getMatrixB().getMatrixColumn(); j++) {
-                console.log(this.context.getMatrixB())
                 let numberToMatrix = await this.terminalReader.askQuestion(`Kérem írja be a mátrix ${i+1}. sorának ${j+1}. számát: `);
                 while(!validateAsWholeNumber(numberToMatrix)){
                     numberToMatrix = await this.terminalReader.askQuestion(`Kérem írja be a mátrix ${i+1}. sorának ${j+1}. számát: `);

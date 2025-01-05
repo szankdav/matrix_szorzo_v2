@@ -28,7 +28,6 @@ export class Context {
         return this.matrix_B;
     }
 
-    //Nem fog kelleni
     public getCurrentState() {
         return this.currentState;
     }

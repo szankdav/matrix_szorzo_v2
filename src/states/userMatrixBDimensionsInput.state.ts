@@ -20,18 +20,21 @@ export class UserMatrixBDimensionsInputState implements State {
 
     async next(): Promise<void | null> {
         this.terminalReader.displayText(MATRIX_MSG);
+
         let matrixRow = await this.terminalReader.askQuestion(ROW_QSTN);
-        const matrix_ACol = this.context.getMatrixA().getMatrixColumn();
         while(!validateAsNaturalNumber(matrixRow)){
             matrixRow = await this.terminalReader.askQuestion(ROW_QSTN);
         }
-
+        
+        const matrix_ACol = this.context.getMatrixA().getMatrixColumn();
         while(parseInt(matrixRow) !== matrix_ACol){
             this.terminalReader.displayText(ROW_COL_ERR_MSG);
             matrixRow = await this.terminalReader.askQuestion(ROW_QSTN);
         }
 
         this.context.getMatrixB().setRow(parseInt(matrixRow));
+        this.context.getMatrixB().setData();
+
         this.terminalReader.displayText(`Az első dimenzió mérete, azaz a sorok száma: ${matrixRow}`);
 
         let matrixCol = await this.terminalReader.askQuestion(COL_QSTN);
@@ -39,6 +42,7 @@ export class UserMatrixBDimensionsInputState implements State {
             matrixCol = await this.terminalReader.askQuestion(COL_QSTN);
         }
         this.context.getMatrixB().setColumn(parseInt(matrixCol));
+        
         this.terminalReader.displayText(`A második dimenzió mérete, azaz az oszlopok száma: ${matrixCol}`);
 
         this.context.setCurrentState(new UserMatrixBDataInputState(this.context, this.terminalReader));
