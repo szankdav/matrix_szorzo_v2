@@ -1,10 +1,14 @@
-import { describe, it, vi, expect } from 'vitest';
+import { describe, it, vi, expect, beforeEach } from 'vitest';
 import { Context } from '../core/context';
 import { TerminalReader } from '../core/terminalReader';
 import { UserMatrixBDimensionsInputState } from './userMatrixBDimensionsInput.state';
 import { UserMatrixBDataInputState } from './userMatrixBDataInput.state';
 
 describe('UserMatrixBDimensionsInputState tests', () => {
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => { });
+    });
+
     it("should call askQuestion again if answer is not a valid number", async () => {
         const terminalReaderMock = {
             askQuestion: vi.fn(),

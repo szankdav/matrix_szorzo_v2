@@ -36,20 +36,22 @@ export class Matrix {
     public toString() {
         for (let i = 0; i < this.data.length; i++) {
             let nums: number[] = [];
+            let matrixString: string = "";
             for (let j = 0; j < this.data[i].length; j++) {
-                process.stdout.write(`\t${j + 1}. oszlop: `);
+                matrixString += `\t${j + 1}. oszlop: `;
                 nums.push(this.data[i][j]);
             }
-            process.stdout.write('\n');
+            console.log(matrixString);
+            matrixString = "";
             if (i < this.data.length) {
-                process.stdout.write(`${i + 1}. sor: `);
+                matrixString += `${i + 1}. sor: `;
                 for (let k = 0; k < nums.length; k++) {
-                    process.stdout.write(`${nums[k]}\t\t`);
+                    matrixString += `${nums[k]}\t\t`;
                 }
-                process.stdout.write("\n");
+                console.log(matrixString);
+                matrixString = "";
             }
         }
-        //return this.data.map(row => row.join(" ")).join("\n");
     }
 
     createRandomMatrix() {

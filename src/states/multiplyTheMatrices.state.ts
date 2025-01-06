@@ -1,12 +1,10 @@
 import { Context } from "../core/context";
-import { validateAsIOrNLetter } from "../core/inputValidate";
 import { Matrix } from "../core/matrix";
 import { TerminalReader } from "../core/terminalReader";
 import { State } from "../interfaces/state";
 import { ModeState } from "./mode.state";
 
-export const MSG = "\nA mátrixok szorzásval létrejött mátrix:";
-export const TIMEOUT_MSG = "Szeretné lépésenként látni a szorzást? [I/N]: ";
+const MSG = "\nA mátrixok szorzásával létrejött mátrix:";
 
 export class MultiplyTheMatricesState implements State {
     private multipliedMatrix: Matrix;
@@ -26,31 +24,33 @@ export class MultiplyTheMatricesState implements State {
     }
 
     async next(): Promise<void | null> {
-        let answer = await this.terminalReader.askQuestion(TIMEOUT_MSG);
-        while (!validateAsIOrNLetter(answer)) {
-            answer = await this.terminalReader.askQuestion(TIMEOUT_MSG);
-        }
         this.multipliedMatrix.setRow(this.context.getMatrixA().getMatrixRow());
         this.multipliedMatrix.setData();
         this.multipliedMatrix.setColumn(this.context.getMatrixB().getMatrixColumn());
+
         for (let i = 0; i < this.multipliedMatrix.getMatrixRow(); i++) {
             for (let j = 0; j < this.multipliedMatrix.getMatrixColumn(); j++) {
                 let sum: number = 0;
+                let multiply: string[] = [];
                 for (let k = 0; k < this.context.getMatrixA().getMatrixData()[0].length; k++) {
                     sum += this.context.getMatrixA().getMatrixData()[i][k] * this.context.getMatrixB().getMatrixData()[k][j];
-                    if (answer.toUpperCase() === "I") {
-                        process.stdout.write(`${i + 1}. sor ${k + 1}. oszlopérték: [${this.context.getMatrixA().getMatrixData()[i][k]}] szorozva ${k + 1}. sor ${j + 1}. oszlopérték: [${this.context.getMatrixB().getMatrixData()[k][j]}] ---> [${this.context.getMatrixA().getMatrixData()[i][k]} * ${this.context.getMatrixB().getMatrixData()[k][j]}]`);
+                    if (process.env.NODE_ENV == "development") {
+                        let multiplyText = `${i + 1}. sor ${k + 1}. oszlopérték: [${this.context.getMatrixA().getMatrixData()[i][k]}] szorozva ${k + 1}. sor ${j + 1}. oszlopérték: [${this.context.getMatrixB().getMatrixData()[k][j]}] ---> [${this.context.getMatrixA().getMatrixData()[i][k]} * ${this.context.getMatrixB().getMatrixData()[k][j]}]`;
+                        multiply.push(multiplyText);
                         if (k < this.context.getMatrixA().getMatrixData()[0].length - 1) {
-                            process.stdout.write(" + ");
+                            multiply.push("+");
+                            this.terminalReader.displayText(multiply[k]);
                         }
                         else {
-                            process.stdout.write(" = ");
+                            this.terminalReader.displayText("=");
                         }
                         await this.asyncTimeout(1000);
                     }
                 }
-                if (answer.toUpperCase() === "I") {
-                    process.stdout.write(`${sum}\n`);
+                if (process.env.NODE_ENV == "development") {
+                    multiply.push(`${sum}`);
+                    this.terminalReader.displayText(multiply[multiply.length - 1]);
+                    multiply = [];
                 }
                 this.multipliedMatrix.getMatrixData()[i].push(sum);
             }

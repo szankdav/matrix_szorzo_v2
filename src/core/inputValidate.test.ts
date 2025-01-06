@@ -1,8 +1,12 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { validateAsIOrNLetter, validateAsLetter, validateAsNaturalNumber, validateAsWholeNumber } from "./inputValidate";
 
 
 describe('validateAsNaturalNumber tests', () => {
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => { });
+    });
+
     it('should return true if the given input is a valid number', async () => {
         const res = validateAsNaturalNumber('5')
         expect(res).equal(true)
@@ -20,6 +24,10 @@ describe('validateAsNaturalNumber tests', () => {
 })
 
 describe('validateAsLetter tests', () => {
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => { });
+    });
+
     it('should return true if the given input is "a"', async () => {
         const res = validateAsLetter("a");
         expect(res).toBe(true);
@@ -57,6 +65,10 @@ describe('validateAsLetter tests', () => {
 })
 
 describe('validateAsIOrNLetter tests', () => {
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => { });
+    });
+
     it('should return true if the given input is "i"', async () => {
         const res = validateAsIOrNLetter("i");
         expect(res).toBe(true);
@@ -84,6 +96,10 @@ describe('validateAsIOrNLetter tests', () => {
 })
 
 describe('validateAsWholeNumber tests', () => {
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => { });
+    });
+
     it('should return true if the given input is a valid number', async () => {
         const res = validateAsWholeNumber("5")
         expect(res).equal(true)

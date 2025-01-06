@@ -1,7 +1,5 @@
 import { describe, it } from "vitest";
 import { expect, vi } from "vitest";
-import { Context } from "../core/context";
-import { State } from "../interfaces/state";
 
 describe('context tests', () => {
     it('should resolve context.next() with currentState.next() ', async () => {

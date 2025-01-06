@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "npx vitest",
-    "start": "npx vite-node src/index.ts"
+    "dev": "NODE_ENV=development npx vite-node src/index.ts",
+    "production": "NODE_ENV=production npx vite-node src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "typescript": "^5.7.2"
   },
   "devDependencies": {

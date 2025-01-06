@@ -1,10 +1,14 @@
-import { describe, it, vi, expect } from 'vitest';
+import { describe, it, vi, expect, beforeEach } from 'vitest';
 import { UserMatrixADataInputState } from './userMatrixADataInput.state';
 import { Context } from '../core/context';
 import { TerminalReader } from '../core/terminalReader';
 import { UserMatrixBDimensionsInputState } from './userMatrixBDimensionsInput.state';
 
 describe('UserMatrixADataInputState tests', () => {
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => { });
+    });
+
     it('should request inputs until matrix_A is filled with numbers', async () => {
         const terminalReaderMock = {
             askQuestion: vi.fn(),

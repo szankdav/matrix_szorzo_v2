@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ModeState } from "./mode.state";
 import { Context } from "../core/context";
 import { TerminalReader } from "../core/terminalReader";
@@ -11,6 +11,10 @@ describe('ModeState tests', () => {
     const USER_MSG = "'M' (manuális): a program a felhasználótól kéri be az adatokat, majd elvégzi a szorzást. Minden lépés megjelenítésre kerül a konzolon.";
     const EXIT_MSG = "'K' (kilépés): a program kilép.";
     const MODE_CHOOSE_MSG = "Válaszott mód: ['A'/'M'/'K']: ";
+
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => { });
+    });
 
     it("should call displayText with the given message", async () => {
         const contextMock = {
