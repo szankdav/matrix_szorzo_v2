@@ -3,472 +3,233 @@
 theme: seriph
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: https://cover.sli.dev
+background: "./img/math.jpg"
 # some information about your slides (markdown enabled)
-title: Welcome to Slidev
-info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+title: Mátrix szorzó program
 # apply unocss classes to the current slide
 class: text-center
 # https://sli.dev/features/drawing
 drawings:
   persist: false
 # slide transition: https://sli.dev/guide/animations.html#slide-transitions
-transition: slide-left
+transition: fade-out
 # enable MDC Syntax: https://sli.dev/features/mdc
 mdc: true
 ---
 
-# Welcome to Slidev
+# Mátrix szorzó program
 
-Presentation slides for developers
+## ...és ami mögötte van 
 
 <div @click="$slidev.nav.next" class="mt-12 py-1" hover:bg="white op-10">
-  Press Space for next page <carbon:arrow-right />
+  Lássuk <carbon:arrow-right />
 </div>
 
 <div class="abs-br m-6 text-xl">
   <button @click="$slidev.nav.openInEditor" title="Open in Editor" class="slidev-icon-btn">
     <carbon:edit />
   </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" class="slidev-icon-btn">
+  <a href="https://github.com/szankdav/matrix_szorzo_v2/tree/state-pattern" target="_blank" class="slidev-icon-btn">
     <carbon:logo-github />
   </a>
 </div>
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
 
 ---
 transition: fade-out
 ---
 
-# What is Slidev?
+## A projekt célja
 
-Slidev is a slides maker and presenter designed for developers, consist of the following features
+Ez a projekt tanulási céllal jött létre, melynek eredményeképp megismerkedhetünk a mátrixokkal, a velük végezhető műveletekkel, majd kiemelten ezek közül a szorzással. Ez után megnézzük mi az a State Pattern (állapot minta), amit követtünk a program létrehozása során. Végül megtudjuk, hogyan tudjuk használni a programot.
 
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - themes can be shared and re-used as npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embed Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export to PDF, PPTX, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - virtually anything that's possible on a webpage is possible in Slidev
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/features/slide-scope-style
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
-
----
-transition: slide-up
-level: 2
----
-
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/ui#navigation-bar)
-
-## Keyboard Shortcuts
-
-|                                                     |                             |
-| --------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                 | next animation or slide     |
-| <kbd>left</kbd>  / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                       | previous slide              |
-| <kbd>down</kbd>                                     | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animation -->
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-  alt=""
-/>
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-layout: two-cols
-layoutClass: gap-16
----
-
-# Table of contents
-
-You can use the `Toc` component to generate a table of contents for your slides:
-
-```html
-<Toc minDepth="1" maxDepth="1" />
-```
-
-The title will be inferred from your slide content, or you can override it with `title` and `level` in your frontmatter.
-
-::right::
-
-<Toc text-sm minDepth="1" maxDepth="2" />
-
----
-layout: image-right
-image: https://cover.sli.dev
----
-
-# Code
-
-Use code snippets and get the highlighting directly, and even types hover!
-
-```ts {all|5|7|7-8|10|all} twoslash
-// TwoSlash enables TypeScript hover information
-// and errors in markdown code blocks
-// More at https://shiki.style/packages/twoslash
-
-import { computed, ref } from 'vue'
-
-const count = ref(0)
-const doubled = computed(() => count.value * 2)
-
-doubled.value = 2
-```
-
-<arrow v-click="[4, 5]" x1="350" y1="310" x2="195" y2="334" color="#953" width="2" arrowSize="1" />
-
-<!-- This allow you to embed external code blocks -->
-<<< @/snippets/external.ts#snippet
-
-<!-- Footer -->
-
-[Learn more](https://sli.dev/features/line-highlighting)
-
-<!-- Inline style -->
-<style>
-.footnotes-sep {
-  @apply mt-5 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
-<!--
-Notes can also sync with clicks
-
-[click] This will be highlighted after the first click
-
-[click] Highlighted with `count = ref(0)`
-
-[click:3] Last click (skip two clicks)
--->
+<img src="./img/matrix_movie.jpg" style="width: 50%; margin: auto"></img>
+<div @click="$slidev.nav.next" class="mt-12 py-1 text-center" hover:bg="white op-10">
+  Ez jól hangzik! <carbon:arrow-right />
+</div>
 
 ---
 level: 2
 ---
 
-# Shiki Magic Move
+## Mi a mátrix?
+<br>
+Definíció:<br> 
 
-Powered by [shiki-magic-move](https://shiki-magic-move.netlify.app/), Slidev supports animations across multiple code snippets.
-
-Add multiple code blocks and wrap them with <code>````md magic-move</code> (four backticks) to enable the magic move. For example:
-
-````md magic-move {lines: true}
-```ts {*|2|*}
-// step 1
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-})
-```
-
-```ts {*|1-2|3-4|3-4,8}
-// step 2
-export default {
-  data() {
-    return {
-      author: {
-        name: 'John Doe',
-        books: [
-          'Vue 2 - Advanced Guide',
-          'Vue 3 - Basic Guide',
-          'Vue 4 - The Mystery'
-        ]
-      }
-    }
-  }
-}
-```
-
-```ts
-// step 3
-export default {
-  data: () => ({
-    author: {
-      name: 'John Doe',
-      books: [
-        'Vue 2 - Advanced Guide',
-        'Vue 3 - Basic Guide',
-        'Vue 4 - The Mystery'
-      ]
-    }
-  })
-}
-```
-
-Non-code blocks are ignored.
-
-```vue
-<!-- step 4 -->
-<script setup>
-const author = {
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
-}
-</script>
-```
-````
-
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-class: px-20
----
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/guide/theme-addon#use-theme) and
-check out the [Awesome Themes Gallery](https://sli.dev/resources/theme-gallery).
-
----
-
-# Clicks Animations
-
-You can add `v-click` to elements to add a click animation.
-
-<div v-click>
-
-This shows up when you click the slide:
-
-```html
-<div v-click>This shows up when you click the slide.</div>
-```
-
-</div>
-
+"A mátrix a matematikában mennyiségek téglalap alakú elrendezése (táblázata). (Számoké, függvényeké, kifejezéseké, vagy egyéb elemeké, esetleg más mátrixoké; általánosan valamilyen gyűrű vagy vektortér elemeié)."
 <br>
 
-<v-click>
+Forrás: <a href="https://hu.wikipedia.org/wiki/M%C3%A1trix_(matematika)" target="_blank">Wikipédia</a>
+<br>
 
-The <span v-mark.red="3"><code>v-mark</code> directive</span>
-also allows you to add
-<span v-mark.circle.orange="4">inline marks</span>
-, powered by [Rough Notation](https://roughnotation.com/):
+Érthetőbben:<br>
 
-```html
-<span v-mark.underline.orange>inline markers</span>
-```
+A mátrix nem más, mint egy táblázat, mely sorokból és oszlopokból áll. Egy n * m mátrix n sorból és m oszlopból épül fel. Ezt kétdimenziós mátrixnak nevezzük. Létezik háromdimenziós mátrix is, ami több kétdimenziós mátrix gyűjteménye. Ebben az esetben egy sor oszlopának az eleme egy újabb kétdimenziós mátrix lesz, aminek szintén vannak sorai és oszlopai.
 
-</v-click>
 
-<div mt-20 v-click>
-
-[Learn more](https://sli.dev/guide/animations#click-animation)
-
+<div @click="$slidev.nav.next" class="mt-12 py-1 text-center" hover:bg="white op-10">
+  Képpel érthetőbb lesz <carbon:arrow-right />
 </div>
 
 ---
 
-# Motions
+Programozás során a mátrixokat tömbök segítségével hozzuk létre. Egy kétdimenziós mátrix egy olyan tömb, amiben a sorok számának megfelelő számú tömbök kapnak helyet. Egy háromdimenziós mátrix pedig egy olyan tömb, ahol minden sor egy kétdimenziós mátrixot tartalmazó tömb:
 
-Motion animations are powered by [@vueuse/motion](https://motion.vueuse.org/), triggered by `v-motion` directive.
-
-```html
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }"
-  :click-3="{ x: 80 }"
-  :leave="{ x: 1000 }"
->
-  Slidev
-</div>
-```
-
-<div class="w-60 relative">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-square.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-circle.png"
-      alt=""
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute inset-0"
-      src="https://sli.dev/logo-triangle.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
+<img style="width: 90%; margin: auto" src="./img/matrices.png"></img>
+<div @click="$slidev.nav.next" class="mt-8 text-center" hover:bg="white op-10">
+  Műveletek mátrixokkal<carbon:arrow-right />
 </div>
 
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
+---
+class: mt-8
+---
 
-<div
-  v-motion
-  :initial="{ x:35, y: 30, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
+## Műveletek mátrixokkal
 
-[Learn more](https://sli.dev/guide/animations.html#motion)
+Most, hogy már tudjuk mi a mátrix, ismerkedjünk meg a műveletekkel, amiket két, vagy több mátrix felhasználásával végre tudunk hajtani:
 
+<ul>
+<li>Transzponálás</li>
+<li>Összeadás</li>
+<li>Skalárral való szorzás</li>
+<li>Mátrixszorzás</li>
+</ul>
+
+Mi a programunkban az utolsót, azaz a mátrixszorzást mutatjuk be. De mielőtt ráténénk erre, ismerkedjünk meg a három másik elvégezhető művelettel!
+
+<div @click="$slidev.nav.next" class="mt-12 py-1 text-center" hover:bg="white op-10">
+  Transzponálás<carbon:arrow-right />
 </div>
 
 ---
 
-# LaTeX
+## Transzponálás
 
-LaTeX is supported out-of-box. Powered by [KaTeX](https://katex.org/).
+Egy mátrix transzponálása sorainak és oszlopainak felcsérélését jelenti. Kétszer végrehajtva visszakapjuk az eredeti mátrixot. A transzponálás jele: A<sup>T</sup>
 
-<div h-3 />
+<img src="./img/Matrix_transpose.gif"></img>
 
-Inline $\sqrt{3x-1}+(1+x)^2$
+<div @click="$slidev.nav.next" class="mt-8 text-center" hover:bg="white op-10">
+  Összeadás<carbon:arrow-right />
+</div>
 
-Block
-$$ {1|3|all}
-\begin{aligned}
-\nabla \cdot \vec{E} &= \frac{\rho}{\varepsilon_0} \\
-\nabla \cdot \vec{B} &= 0 \\
-\nabla \times \vec{E} &= -\frac{\partial\vec{B}}{\partial t} \\
-\nabla \times \vec{B} &= \mu_0\vec{J} + \mu_0\varepsilon_0\frac{\partial\vec{E}}{\partial t}
-\end{aligned}
-$$
+---
+class: mt-12
+---
+## Összeadás
 
-[Learn more](https://sli.dev/features/latex)
+Csak azonos dimenziójú mátrixok adhatóak össze. Legyen A és B két azonos dimenziójú, n * m-es méretű mátrix. Az A+B összeget úgy képezzük, hogy az azonos helyen lévő elemeket összegezzük: 
+
+<div class="text-center mb-15 mt-10">
+(A+B)[i,j] = (A)[i,j] + (B)[i,j]
+
+<img src="./img/sum.png" style="width: 40%; margin: auto"></img>
+</div>
+
+<div @click="$slidev.nav.next" class="mt-8 text-center" hover:bg="white op-10">
+  Skalárral való szorzás<carbon:arrow-right />
+</div>
+
+---
+
+## Skalárral való szorzás
+
+Egy A mátrix a skalárral való aA szorzatát úgy számoljuk, hogy A minden elemét megszorozzuk a a számmal:
+
+<div class="text-center mb-8 mt-8">
+(aA)[i,j] = a*(A)[i,j]
+
+<img src="./img/scalar.png" style="width: 30%; margin: auto"></img>
+</div>
+
+<div @click="$slidev.nav.next" class="text-center" hover:bg="white op-10">
+  Mátrixszorzás<carbon:arrow-right />
+</div>
+
+---
+
+## Mátrixszorzás
+
+Két mátrix szorzata akkor definiált, ha a bal oldali mátrix oszlopai száma megegyezik a jobb oldali mátrix sorainak számával. Ha A egy n * m-es, B pedig egy m * k-s mátrix, mátrixszorzatuk egy n * k méretű AB mátrix lesz, melynek elemei így számíthatóak:
+
+<div class="text-center mb-8 mt-8">
+(AB)[i,j] = A[i,1] * B[1, j] + A[i, 2] * B[2, j] + ... + A[i, n] * B[n, j] 
+
+<img src="./img/multiply.png" style="width: 70%; margin: auto"></img>
+</div>
+
+A programunkban a fent olvasható módszert alkalmazva vagyunk képesek két mátrix szorzását elvégezni.
+
+Minden műveletről részletesen olvashatunk a <a href="https://hu.wikipedia.org/wiki/M%C3%A1trix_(matematika)" target="_blank">Wikipédián</a>!
+
+<div @click="$slidev.nav.next" class="mt-12 text-center" hover:bg="white op-10">
+  A program<carbon:arrow-right />
+</div>
+
+---
+
+## Mátrix szorzó
+
+Most, hogy már tudjuk mi a mátrix, és milyen műveletek milyen módon végezhetőek mátrixokon, ismerkedjünk meg a programmal, ami két mátrix szorzását végzi el nekünk!
+
+A program forráskódja letölhető a GitHub-ról:<br>
+https://github.com/szankdav/matrix_szorzo_v2/tree/state-pattern
+
+A readme.md fájl tartalmazza a szükséges lépéseket és információkat a futtatáshoz!
+
+A program egy konzolos alkalmazás, ami azt jelenti, hogy a felhasználó a terminál segítségével tud bevinni adatokat, és a megjelenítés is itt történik. 
+
+A programkód írása során a State Pattern-t, vagyis az állapot programtervezési követtük.
+
+A következő diákon ezzel a programtervezési mintával ismerkedünk meg.
+
+<div @click="$slidev.nav.next" class="mt-15 text-center" hover:bg="white op-10">
+  Design Patterns - Programtervezési minták<carbon:arrow-right />
+</div>
+
+---
+
+## Patternek, avagy programtervezési minták
+
+Whoa-whoa-whoa, álljunk meg egy pillanatra. Többször mondtuk már, hogy State Pattern. De egyáltalán mi az?
+
+A State Pattern egyike a számos programtervezési mintának (design patterns). A programtervezési minták (design patterns) olyan újrafelhasználható megoldások, melyek gyakori problémákat oldanak meg. Nem konkrét kódot, implementiációt kell érteni alatta, hanem egy útmutatót (paradigmát), mely az adott probléma megoldására kínál egy bejáratott megoldást. Forrás: <a href="https://mernokinformatikus.hu/tervezesi-mintak-a-gyakorlatban/" target="_blank">Tervezési minták</a>
+
+A mi programunkban célként tűztük ki, hogy miután megtörtént a mátrixok szorzása, a program ne álljon le, hanem a felhasználónak legyen lehetősége újabb szorzás végrehajtására, egészen addig, amíg azt nem mondja, hogy vége, ki szeretnék lépni.
+
+Ahelyett, hogy saját módszert alkottunk volna erre, egy létező paradigmát hívtunk segítségül:<br>
+A State Pattern-t.
+
+Ezzel garantálhatjuk, hogy azok a fejlesztők, akik ismerik ezeket a koncepciókat, könnyebben el tudnak igazodni a kódunkban, és nem kell kitalálniuk, hogy "mire gondolt a költő". Akik pedig nem ismerik ezeket, azoknak itt az ideje megismerkedni velük! :)
+
+<div @click="$slidev.nav.next" class="text-center" hover:bg="white op-10">
+  State Pattern - Állapot programtervezési minta<carbon:arrow-right />
+</div>
+
+---
+
+## State Pattern - Állapot programtervezési minta
+
+A kitekintés után térjünk vissza az általunk használt programtervezési mintához, a State Pattner-höz.
+
+Említettük, hogy a programunkat úgy szerettük volna megírni, hogy egészen addig fusson, amíg a felhasználó azt nem mondja, hogy ő ki szeretne lépni. Hogyan oldanánk ezt meg, ha nem a programtervezési mintákhoz fordulnánk segítségért? Szerintem sok olvasóban már most felmerült a válasz: sok-sok if-else elágazással, esetleg switch-case-ekkel. Hiszen mindig ellenőriznünk kell, hogy a programunk éppen hol tart, mi történik éppen, és ez alapján kell a megfelelő irányba terelnünk a programunk futását.
+
+A fő gondolat az, hogy egy adott pillanatban véges számú állapot van, amelyben a programunk lehet. Bármely egyedi állapoton belül a programunk másként viselkedik, és azonnal átkapcsolható egyik állapotból a másikba az if-else-ek segítségével.
+
+Ez ahhoz fog vezetni, hogy a kódunk nagyon sok sorból fog állni, hiszen minden egyes lépés előtt ismét meg kell vizsgálnunk, hogy éppen mi történik, és ott helyben meg is kell mondanunk, hogy hogyan tovább. További állapotok implementálása növelni fogja az if-else elágazásunkat, a kód nehezen olvasható lesz, és a logika módosítása megváltoztathatja az if-else felétételeket, így karbantarthatóság szempontjából sem a legideálisabb ez a módszer.
+
+<div @click="$slidev.nav.next" class="mt-5 text-center" hover:bg="white op-10">
+  State Pattern - Állapot programtervezési minta<carbon:arrow-right />
+</div>
+
+---
+
+## State Pattern - Állapot programtervezési minta
+
+Tehát, hogyan is segít nekünk a State Pattern?
+
+Az állapot minta szerint a legjobb, ha új osztályokat hozunk létre a programunk objektumainak összes lehetséges állapotához, és az összes állapotspecifikus viselkedést ezekben az osztályokban defíniáljuk. Ahelyett, hogy a viselkedéseket a program futtatására szolgáló fájlban valósítanánk meg, létrehozunk egy objektumot, amit kontextusnak nevezünk, ami eltárolja a hivatkozást az egyik állapotobjektumra, amely az aktuális állapotot reprezentálja, és az összes állapottal kapcsolatos munkát erre az állapotobjektumra delegálja.
+
+Szóval, ahelyett, hogy a programunk aktuális állapotát if-else elágazások hadával felügyelnénk, állapotokat hozunk létre, és a programot mindig a megfelelő állapotban fogjuk futtatni. 
 
 ---
 
