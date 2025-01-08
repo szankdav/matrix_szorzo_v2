@@ -1,8 +1,9 @@
 import { Context } from "../core/context";
-import { validateAsLetter } from "../core/inputValidate";
+import { validateAsAOrMOrKLetter } from "../core/inputValidate";
 import { TerminalReader } from "../core/terminalReader";
 import { State } from "../interfaces/state";
 import { AutomateMatrixAState } from "./automateMatrixA.state";
+import { EndState } from "./end.state";
 import { UserMatrixADimensionsInputState } from "./userMatrixADimensionsInput.state";
 
 export const MODE_MSG = "Kérem válasszon az alábbi lehetőségek közül:";
@@ -26,7 +27,7 @@ export class ModeState implements State{
         this.terminalReader.displayText(USER_MSG);
         this.terminalReader.displayText(EXIT_MSG);
         let choosenMode = await this.terminalReader.askQuestion(MODE_CHOOSE_MSG);
-        while(!validateAsLetter(choosenMode)){
+        while(!validateAsAOrMOrKLetter(choosenMode)){
             choosenMode = await this.terminalReader.askQuestion(MODE_CHOOSE_MSG);
         }
         if(choosenMode.toUpperCase() === "M"){
@@ -36,7 +37,7 @@ export class ModeState implements State{
             this.context.setCurrentState(new AutomateMatrixAState(this.context, this.terminalReader));
         }
         else if(choosenMode.toUpperCase() === "K"){
-            this.context.setCurrentState(null);
+            this.context.setCurrentState(new EndState(this.context, this.terminalReader));
         }
     }
 }

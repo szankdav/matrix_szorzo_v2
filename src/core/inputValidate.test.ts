@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { validateAsIOrNLetter, validateAsLetter, validateAsNaturalNumber, validateAsWholeNumber } from "./inputValidate";
+import { validateAsIOrNLetter, validateAsAOrMOrKLetter, validateAsNaturalNumber, validateAsWholeNumber } from "./inputValidate";
 
 
 describe('validateAsNaturalNumber tests', () => {
@@ -29,37 +29,37 @@ describe('validateAsLetter tests', () => {
     });
 
     it('should return true if the given input is "a"', async () => {
-        const res = validateAsLetter("a");
+        const res = validateAsAOrMOrKLetter("a");
         expect(res).toBe(true);
     })
 
     it('should return true if the given input is "m"', async () => {
-        const res = validateAsLetter("m");
+        const res = validateAsAOrMOrKLetter("m");
         expect(res).toBe(true);
     })
 
     it('should return true if the given input is "k"', async () => {
-        const res = validateAsLetter("k");
+        const res = validateAsAOrMOrKLetter("k");
         expect(res).toBe(true);
     })
 
     it('should return true if the given input is "A"', async () => {
-        const res = validateAsLetter("A");
+        const res = validateAsAOrMOrKLetter("A");
         expect(res).toBe(true);
     })
 
     it('should return true if the given input is "M"', async () => {
-        const res = validateAsLetter("M");
+        const res = validateAsAOrMOrKLetter("M");
         expect(res).toBe(true);
     })
 
     it('should return true if the given input is "K"', async () => {
-        const res = validateAsLetter("K");
+        const res = validateAsAOrMOrKLetter("K");
         expect(res).toBe(true);
     })
 
     it('should return false if the given input is not in "a", "m", "k", or "A", "M", "K"', async () => {
-        const res = validateAsLetter("d");
+        const res = validateAsAOrMOrKLetter("d");
         expect(res).toBe(false);
     })
 })

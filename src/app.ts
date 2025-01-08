@@ -14,7 +14,4 @@ context.setCurrentState(startState);
     do {
         await context.next();
     } while (context.getCurrentState() !== null)
-    
-    console.log("A program kilép!");
-    process.exit(0);
 })();

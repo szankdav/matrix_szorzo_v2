@@ -14,7 +14,7 @@ export function validateAsNaturalNumber(input: string): boolean {
     }
 }
 
-export function validateAsLetter(input: string): boolean {
+export function validateAsAOrMOrKLetter(input: string): boolean {
     const character = input.toUpperCase();
     if (input.split(" ").length > 1) {
         console.log("Kérem csak 'A' vagy 'M' betűvel válaszoljon!");

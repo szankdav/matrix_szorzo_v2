@@ -4,6 +4,7 @@ import { Context } from "../core/context";
 import { TerminalReader } from "../core/terminalReader";
 import { UserMatrixADimensionsInputState } from "./userMatrixADimensionsInput.state";
 import { AutomateMatrixAState } from "./automateMatrixA.state";
+import { EndState } from "./end.state";
 
 describe('ModeState tests', () => {
     const MODE_MSG = "Kérem válasszon az alábbi lehetőségek közül:";
@@ -38,7 +39,7 @@ describe('ModeState tests', () => {
         expect(terminalReaderMock.displayText).toHaveBeenCalledWith(EXIT_MSG);
     })
 
-    it("should set context's currentState to null if answer is 'k' or 'K'", async () => {
+    it("should set context's currentState to EndState if answer is 'k' or 'K'", async () => {
         const contextMock = {
             setCurrentState: vi.fn(),
             getCurrentState: vi.fn(),
@@ -51,12 +52,14 @@ describe('ModeState tests', () => {
 
         terminalReaderMock.askQuestion.mockResolvedValue('k');
         contextMock.getCurrentState.mockReturnValue(null);
+
+        contextMock.getCurrentState.mockReturnValue(new EndState(contextMock as unknown as Context, terminalReaderMock as unknown as TerminalReader));
+
         const modeState = new ModeState(contextMock as unknown as Context, terminalReaderMock as unknown as TerminalReader);
         await modeState.next();
-
         expect(terminalReaderMock.askQuestion).toHaveBeenCalledWith(MODE_CHOOSE_MSG);
-        expect(contextMock.setCurrentState).toHaveBeenCalledWith(null);
-        expect(contextMock.getCurrentState()).toBe(null);
+        expect(contextMock.setCurrentState).toHaveBeenCalledWith(new EndState(contextMock as unknown as Context, terminalReaderMock as unknown as TerminalReader));
+        expect(contextMock.getCurrentState()).toBeInstanceOf(EndState);
     })
 
     it("should call askQuestion again if answer is not 'k' or 'K'", async () => {

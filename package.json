@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx vitest",
-    "dev": "NODE_ENV=development npx vite-node src/index.ts",
-    "production": "NODE_ENV=production npx vite-node src/index.ts"
+    "dev": "NODE_ENV=development npx vite-node src/app.ts",
+    "production": "NODE_ENV=production npx vite-node src/app.ts"
   },
   "author": "",
   "license": "ISC",
