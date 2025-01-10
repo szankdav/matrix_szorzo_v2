@@ -149,7 +149,7 @@ Egy A mátrix a skalárral való aA szorzatát úgy számoljuk, hogy A minden el
 
 ## Mátrixszorzás
 
-Két mátrix szorzata akkor definiált, ha a bal oldali mátrix oszlopai száma megegyezik a jobb oldali mátrix sorainak számával. Ha A egy n * m-es, B pedig egy m * k-s mátrix, mátrixszorzatuk egy n * k méretű AB mátrix lesz, melynek elemei így számíthatóak:
+Két mátrix szorzata akkor definiált, ha a bal oldali mátrix oszlopainak száma megegyezik a jobb oldali mátrix sorainak számával. Ha A egy n * m-es, B pedig egy m * k-s mátrix, mátrixszorzatuk egy n * k méretű AB mátrix lesz, melynek elemei így számíthatóak:
 
 <div class="text-center mb-8 mt-8">
 (AB)[i,j] = A[i,1] * B[1, j] + A[i, 2] * B[2, j] + ... + A[i, n] * B[n, j] 
@@ -180,7 +180,7 @@ A program egy konzolos alkalmazás, ami azt jelenti, hogy a felhasználó a term
 
 A programkód írása során a State Pattern-t, vagyis az állapot programtervezési mintát követtük.
 
-A következő diákon ezzel a programtervezési mintával ismerkedünk meg.
+Mielőtt letöltenénk, és használnánk a programot, ismerkedjünk meg ezzel a programtervezési mintával.
 
 <div @click="$slidev.nav.next" class="mt-15 text-center" hover:bg="white op-10">
   Design Patterns - Programtervezési minták<carbon:arrow-right />
@@ -190,7 +190,7 @@ A következő diákon ezzel a programtervezési mintával ismerkedünk meg.
 
 ## Patternek, avagy programtervezési minták
 
-Whoa-whoa-whoa, álljunk meg egy pillanatra. Többször mondtuk már, hogy State Pattern. De egyáltalán mi az?
+Azért itt álljunk meg egy pillanatra. Többször mondtuk már, hogy State Pattern. De egyáltalán mi az?
 
 A State Pattern egyike a számos programtervezési mintának (design patterns). A programtervezési minták (design patterns) olyan újrafelhasználható megoldások, melyek gyakori problémákat oldanak meg. Nem konkrét kódot, implementiációt kell érteni alatta, hanem egy útmutatót (paradigmát), mely az adott probléma megoldására kínál egy bejáratott megoldást. Forrás: <a href="https://mernokinformatikus.hu/tervezesi-mintak-a-gyakorlatban/" target="_blank">Tervezési minták</a>
 
@@ -318,7 +318,10 @@ console.log(document.state, document.getAvailableActions());
 layout: two-cols
 class: mx-3
 ---
-State Pattern esetén létrehozunk egy State interface-t, amiben definiáljuk az állapothoz szükséges funkciókat.
+
+Hogyan néz ez ki State Pattern használata esetén?
+
+Létrehozunk egy State interface-t, amiben definiáljuk az állapothoz szükséges funkciókat.
 
 Majd létrehozunk egy "kontextus" osztályt. Ez lesz az osztályunk, aminek az állapota változni fog. Jelen esetben egy dokumentum az, aminek az állapotát szeretnénk változtatni a megfelelő módon.
 
@@ -366,7 +369,7 @@ class Document {
 layout: two-cols
 class: mx-3
 ---
-Minden lehetséges állapothoz létrehozunk egy külön osztályt, ami a State interface-t fogja implementálni, így megszabjuk, hogy minden állapot ugyanazokra a funkciókra legyen képes. Itt a Draft állapot osztálya látható. Figyeljük meg, hogy a changeState a document osztály egy példányát fogja paraméterként megkapni, majd a példány setState metódusának segítségével átállítja a kontextus osztályunk aktuális állapotát egy új ReviewState állapotra. 
+Minden lehetséges állapothoz létrehozunk egy külön osztályt, ami a State Interface-t fogja implementálni, így megszabjuk, hogy minden állapot ugyanazokra a funkciókra legyen képes. Itt a Draft állapot osztálya látható. Figyeljük meg, hogy a changeState a document osztály egy példányát fogja paraméterként megkapni, majd a példány setState metódusának segítségével átállítja a kontextus osztályunk aktuális állapotát egy új ReviewState állapotra. 
 
 Mivel ezt minden állapot osztályában ugyan így fogjuk definiálni, a megfelelő következő állapot beállításával biztosítjuk, hogy a programunk mindig a megfelelő állapotba kerüljön. Nem szükséges if-else, switch-case, nem kell ellenőriznünk, hogy éppen melyik állapotban vagyunk, mert minden állapot csak a megfelelő állapot után állhat be ezzel a módszerrel.
 ::right::
@@ -399,20 +402,20 @@ Több módszer létezik a felhasználásra, de mivel mi azt szerettük volna el�
 Mondjuk azt, hogy ez a program addig fusson, amíg a dokumentum nem kerül APPROVED állapotba. Ha elérjük ezt az állapotot, akkor érjen véget a program.
 
 Ami itt történik:
-Létrehozunk egy új Document példányt, ami a constructor-nak köszönhetően be fogja állítani a kezdő állapotot. A changeState segítségével megadjuk, hogy mi legyen a következő állapot, aminek az átváltását elvégzi a kezdő állapotunk, vagyis a DraftState. Mivel minden állapotot kapott saját osztályt, megfelelően végigvezetve az állapotváltásokat, eljutunk az ApprovedState osztályig, aminek hatására a ciklusunk kilép, és a programunk bezárul.
+Létrehozunk egy új Document példányt, ami a constructor-nak köszönhetően be fogja állítani a kezdő állapotot. A changeState segítségével megadjuk, hogy mi legyen a következő állapot, aminek az átváltását elvégzi a kezdő állapotunk, vagyis a DraftState. Mivel minden állapotot kapott saját osztályt, megfelelően végigvezetve az állapotváltásokat, eljutunk az ApprovedState osztályig, aminek hatására az osztály logikája miatt a programunk bezárul.
 
 ::right::
 
 ```
+const document = new Document();
 do{
-  const document = new Document();
   document.changeState("REVIEW");
-}while(!(document.getState() instanceof ApprovedState))
+}while(true)
 ```
 
 Ha a későbbiekben bővítenünk kell az állapotokat, akkor minden új állapotnak létrehozunk egy új osztályt, és beillesszük őket a láncba a megfelelő helyre, valamint megadjuk, hogy mi következzen az új állapot után. Majd ismét el fogunk jutni a program végére. Nem szükséges a teljes if-else elágazást módosítani, nem kell a futás során egy új sorban ismét meghívni az állapotot.
 
-Bővebben a State Pattern-ről 
+<a href="https://refactoring.guru/design-patterns/state" target="_blank">Bővebben a State Pattern-ről</a>
 <div @click="$slidev.nav.next" class="mt-15 text-center" hover:bg="white op-10">
   Próbáljuk ki!<carbon:arrow-right />
 </div>

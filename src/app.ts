@@ -1,6 +1,7 @@
 import { Context } from "./core/context";
 import { Matrix } from "./core/matrix";
 import { TerminalReader } from "./core/terminalReader";
+import { EndState } from "./states/end.state";
 import { StartState } from "./states/start.state";
 
 const matrix_A = new Matrix();
@@ -13,5 +14,5 @@ context.setCurrentState(startState);
 (async function main() {
     do {
         await context.next();
-    } while (context.getCurrentState() !== null)
+    } while (true)
 })();
