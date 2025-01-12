@@ -23,7 +23,7 @@ describe('validateAsNaturalNumber tests', () => {
     })
 })
 
-describe('validateAsLetter tests', () => {
+describe('validateAsAOrMOrKLetter tests', () => {
     beforeEach(() => {
         vi.spyOn(console, 'log').mockImplementation(() => { });
     });
@@ -62,6 +62,11 @@ describe('validateAsLetter tests', () => {
         const res = validateAsAOrMOrKLetter("d");
         expect(res).toBe(false);
     })
+
+    it('should return return error message when input is more than two letters', async () => {
+        const res = validateAsAOrMOrKLetter("d k");
+        expect(res).toBe(false);
+    })
 })
 
 describe('validateAsIOrNLetter tests', () => {
@@ -91,6 +96,11 @@ describe('validateAsIOrNLetter tests', () => {
 
     it('should return false if the given input is not in "i", n", "I", or "N"', async () => {
         const res = validateAsIOrNLetter("d");
+        expect(res).toBe(false);
+    })
+
+    it('should return return error message when input is more than two letters', async () => {
+        const res = validateAsIOrNLetter("d k");
         expect(res).toBe(false);
     })
 })

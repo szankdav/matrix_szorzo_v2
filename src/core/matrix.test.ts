@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { Matrix } from "./matrix";
 
 describe('matrix tests', () => {
     it('should return with matrix data when getMatrixData is called', () => {
@@ -67,5 +68,47 @@ describe('matrix tests', () => {
         expect(result).toBe(3);
     })
 
+    it('should return with a random matrix when createRandomMatrix is called', () => {
+        const matrix = new Matrix();
+        matrix.createRandomMatrix();
+        expect(matrix.getMatrixRow()).toBeGreaterThan(0);
+        expect(matrix.getMatrixColumn()).toBeGreaterThan(0);
+        expect(matrix.getMatrixData()).not.toEqual([[], []]);
+    })
 
+    it('should initialize row and column to zero, and data to an empty two-dimensional array when constructor is called', () => {
+        const matrix = new Matrix();
+        expect(matrix.getMatrixRow()).toEqual(0);
+        expect(matrix.getMatrixColumn()).toEqual(0);
+        expect(matrix.getMatrixData()).toEqual([[], []]);
+    })
+
+    it('should print to console the matrix when toString() is called', () => {
+        const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => { });
+
+        const matrix = new Matrix();
+
+        matrix.setRow(2);
+        matrix.setColumn(3);
+        matrix.setData();
+
+        const data = matrix.getMatrixData();
+        data[0] = [1, 2, 3];
+        data[1] = [4, 5, 6];
+
+        const expectedLogs = [
+            "\t1. oszlop: \t2. oszlop: \t3. oszlop: ",
+            "1. sor: 1\t\t2\t\t3\t\t",
+            "\t1. oszlop: \t2. oszlop: \t3. oszlop: ",
+            "2. sor: 4\t\t5\t\t6\t\t",
+        ];
+
+        matrix["toString"]();
+
+        expectedLogs.forEach((log, index) => {
+            expect(consoleLogSpy).toHaveBeenNthCalledWith(index + 1, log);
+        });
+
+        consoleLogSpy.mockRestore();
+    })
 })

@@ -2,6 +2,7 @@ import { Context } from "../core/context";
 import { Matrix } from "../core/matrix";
 import { TerminalReader } from "../core/terminalReader";
 import { State } from "../interfaces/state";
+import { asyncTimeout } from "../utils/timeOut";
 import { ModeState } from "./mode.state";
 
 const MSG = "\nA mátrixok szorzásával létrejött mátrix:";
@@ -15,12 +16,6 @@ export class MultiplyTheMatricesState implements State {
         this.context = context;
         this.terminalReader = terminalReader;
         this.multipliedMatrix = new Matrix();
-    }
-
-    public asyncTimeout = (ms: number) => {
-        return new Promise((resolve) => {
-            setTimeout(resolve, ms);
-        })
     }
 
     async next(): Promise<void | null> {
@@ -44,7 +39,7 @@ export class MultiplyTheMatricesState implements State {
                         else {
                             this.terminalReader.displayText("=");
                         }
-                        await this.asyncTimeout(1000);
+                        await asyncTimeout(1000);
                     }
                 }
                 if (process.env.NODE_ENV == "development") {

@@ -25,7 +25,7 @@ export class Matrix {
         this.row = row;
     }
 
-    public setData(){
+    public setData() {
         this.data = Array(this.getMatrixRow()).fill(null).map(() => []);
     }
 
@@ -43,14 +43,13 @@ export class Matrix {
             }
             console.log(matrixString);
             matrixString = "";
-            if (i < this.data.length) {
-                matrixString += `${i + 1}. sor: `;
-                for (let k = 0; k < nums.length; k++) {
-                    matrixString += `${nums[k]}\t\t`;
-                }
-                console.log(matrixString);
-                matrixString = "";
+            matrixString += `${i + 1}. sor: `;
+            for (let k = 0; k < nums.length; k++) {
+                matrixString += `${nums[k]}\t\t`;
             }
+            console.log(matrixString);
+            matrixString = "";
+
         }
     }
 

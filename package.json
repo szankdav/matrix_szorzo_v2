@@ -5,18 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "npx vitest",
+    "coverage": "vitest run --coverage",
     "dev": "NODE_ENV=development npx vite-node src/app.ts",
     "production": "NODE_ENV=production npx vite-node src/app.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.7",
     "typescript": "^5.7.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "@vitest/coverage-istanbul": "^2.1.8",
     "ts-node": "^10.9.2",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "win-node-env": "^0.6.1"
   }
 }
